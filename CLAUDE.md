@@ -32,3 +32,4 @@ Single-user app. No authentication in V1. Local state plus Supabase for data per
 - Component library: See /docs/component-spec.md -- use existing components before creating new ones
 - Build plan: See /docs/build-plan.md -- build phase by phase, do not jump ahead
 - Project context: See /docs/project-context.md -- full project intake and design decisions
+- Prompt optimization: Use /prompt-optimizer to evaluate and refine instructions before sending them
