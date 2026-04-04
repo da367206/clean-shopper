@@ -22,21 +22,21 @@ Clean Shopper feels trustworthy, approachable, and grounded — a wellness tool 
 ### Primary Colors
 | Token Name | Hex Value | Usage Rule |
 |---|---|---|
-| primary | #3A9D7C | Primary buttons, active navigation states, key CTAs, and "clean" rating indicators. Not for decorative fills, background surfaces, or secondary actions. |
-| primary-light | #6EC4A7 | Hover states on primary elements, tinted backgrounds behind primary content blocks, success-adjacent highlights. Not used as a standalone interactive color. |
-| primary-dark | #237A5E | Pressed/active states on primary buttons, text links that must pass contrast on light backgrounds. Not for large surface fills. |
+| primary | #3DB87A | Primary buttons, active navigation states, key CTAs, and "clean" rating indicators. Not for decorative fills, background surfaces, or secondary actions. |
+| primary-light | #72D4A8 | Hover states on primary elements, tinted backgrounds behind primary content blocks, success-adjacent highlights. Not used as a standalone interactive color. |
+| primary-dark | #1F8A57 | Pressed/active states on primary buttons, text links that must pass contrast on light backgrounds. Not for large surface fills. |
 
 ### Secondary Colors
 | Token Name | Hex Value | Usage Rule |
 |---|---|---|
-| secondary | #F5F0E8 | Page-level backgrounds, card surfaces, section fills that need warmth without competing with content. Not for interactive elements or text. |
-| secondary-dark | #E8E0D0 | Card borders, input backgrounds, subtle section dividers. Not for text or interactive states. |
+| secondary | #F7EDD8 | Page-level backgrounds, card surfaces, section fills that need warmth without competing with content. Not for interactive elements or text. |
+| secondary-dark | #EBD9B8 | Card borders, input backgrounds, subtle section dividers. Not for text or interactive states. |
 
 ### Accent Colors
 | Token Name | Hex Value | Usage Rule |
 |---|---|---|
-| accent | #3B9BA4 | Text links, icon highlights, progress indicators, and secondary interactive elements (tabs, toggles, chips). Not for primary CTAs or destructive actions. |
-| accent-light | #7BCDD4 | Accent hover states, tinted icon backgrounds, subtle tag fills. Not used as a standalone interactive color. |
+| accent | #2196C4 | Text links, icon highlights, progress indicators, and secondary interactive elements (tabs, toggles, chips). Not for primary CTAs or destructive actions. |
+| accent-light | #70C8E8 | Accent hover states, tinted icon backgrounds, subtle tag fills. Not used as a standalone interactive color. |
 
 ### Semantic Colors
 | Token Name | Hex Value | Usage Rule |
@@ -48,12 +48,12 @@ Clean Shopper feels trustworthy, approachable, and grounded — a wellness tool 
 ### Neutral Colors
 | Token Name | Hex Value | Usage Rule |
 |---|---|---|
-| neutral-50 | #FAFAF8 | Page background. The base canvas for all layouts. |
-| neutral-100 | #F3F0EA | Card backgrounds, elevated surface fills, input field backgrounds. |
-| neutral-200 | #E5E0D5 | Borders, dividers, table row separators. |
-| neutral-400 | #A8A29E | Placeholder text, disabled element text, inactive icon fills. |
-| neutral-600 | #6B6560 | Secondary body text, metadata, supporting copy, labels. |
-| neutral-900 | #1C1917 | Primary text, headings, high-emphasis labels. Never use pure black (#000000). |
+| neutral-50 | #FDFAF4 | Page background. The base canvas for all layouts. |
+| neutral-100 | #F5EDD8 | Card backgrounds, elevated surface fills, input field backgrounds. |
+| neutral-200 | #E8D9BC | Borders, dividers, table row separators. |
+| neutral-400 | #AFA38C | Placeholder text, disabled element text, inactive icon fills. |
+| neutral-600 | #6B5E4A | Secondary body text, metadata, supporting copy, labels. |
+| neutral-900 | #1E1A12 | Primary text, headings, high-emphasis labels. Never use pure black (#000000). |
 
 ---
 
@@ -124,5 +124,5 @@ These rules apply to every component Claude Code builds for this project:
 4. Primary color is for the single most important interactive element per view — primary buttons and active nav states only. Not for decorative fills or secondary actions.
 5. Neutral-900 for primary text. Neutral-600 for secondary text. Never use pure black (#000000).
 6. Semantic colors carry meaning. Do not use success green for anything other than positive states. Do not use error red for anything other than errors and destructive actions.
-7. Secondary (#F5F0E8) is a warm surface color, not an interactive color. Never apply it to buttons, links, or states.
+7. Secondary (#F7EDD8) is a warm surface color, not an interactive color. Never apply it to buttons, links, or states.
 8. Accent (teal) is for secondary interactivity only — links, icons, chips. It does not replace primary for CTAs.
