@@ -26,20 +26,19 @@ const tokens = {
     },
   },
 
-  typography: {
-    fontFamily: {
-      sans: ['Poppins', 'system-ui', 'sans-serif'],
-    },
-    fontSize: {
-      micro:   { size: '12px', lineHeight: '1.4', fontWeight: '400' },
-      small:   { size: '14px', lineHeight: '1.5', fontWeight: '400' },
-      body:    { size: '16px', lineHeight: '1.6', fontWeight: '400' },
-      h4:      { size: '18px', lineHeight: '1.4', fontWeight: '500' },
-      h3:      { size: '22px', lineHeight: '1.35', fontWeight: '600' },
-      h2:      { size: '28px', lineHeight: '1.3', fontWeight: '600' },
-      h1:      { size: '36px', lineHeight: '1.25', fontWeight: '600' },
-      display: { size: '48px', lineHeight: '1.2', fontWeight: '700' },
-    },
+  fontFamily: {
+    sans: ['Poppins', 'system-ui', 'sans-serif'],
+  },
+
+  fontSize: {
+    micro:   ['12px', { lineHeight: '1.4', fontWeight: '400' }],
+    small:   ['14px', { lineHeight: '1.5', fontWeight: '400' }],
+    body:    ['16px', { lineHeight: '1.6', fontWeight: '400' }],
+    h4:      ['18px', { lineHeight: '1.4', fontWeight: '500' }],
+    h3:      ['22px', { lineHeight: '1.35', fontWeight: '600' }],
+    h2:      ['28px', { lineHeight: '1.3', fontWeight: '600' }],
+    h1:      ['36px', { lineHeight: '1.25', fontWeight: '600' }],
+    display: ['48px', { lineHeight: '1.2', fontWeight: '700' }],
   },
 
   spacing: {
@@ -60,7 +59,7 @@ const tokens = {
     'radius-full': '9999px',
   },
 
-  shadows: {
+  boxShadow: {
     'shadow-sm': '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
     'shadow-md': '0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)',
     'shadow-lg': '0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.05)',
