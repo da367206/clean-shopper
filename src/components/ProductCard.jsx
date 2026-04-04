@@ -16,20 +16,24 @@ const SAFETY_CONFIG = {
   },
 }
 
-export default function ProductCard({ name, safetyScore, category, description }) {
+export default function ProductCard({ name, safetyScore, score, category, description, onClick }) {
   const safety = SAFETY_CONFIG[safetyScore] ?? SAFETY_CONFIG.caution
 
   return (
-    <div className="
-      bg-white
-      border border-neutral-200
-      rounded-radius-lg
-      shadow-shadow-sm
-      hover:shadow-shadow-md
-      transition-shadow duration-200
-      p-space-lg
-      flex flex-col gap-space-sm
-    ">
+    <div
+      className="
+        bg-white
+        border border-neutral-200
+        rounded-radius-lg
+        shadow-shadow-sm
+        hover:shadow-shadow-md
+        transition-shadow duration-200
+        p-space-lg
+        flex flex-col gap-space-sm
+      "
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+    >
 
       {/* Top row — category tag + safety badge */}
       <div className="flex items-center justify-between gap-space-sm">
@@ -43,16 +47,23 @@ export default function ProductCard({ name, safetyScore, category, description }
           {category}
         </span>
 
-        <span className={`
-          flex items-center gap-[6px]
-          text-small font-medium
-          rounded-radius-sm
-          px-space-sm py-[2px]
-          ${safety.classes}
-        `}>
-          <span className={`w-[6px] h-[6px] rounded-radius-full ${safety.dot}`} />
-          {safety.label}
-        </span>
+        <div className="flex items-center gap-space-sm">
+          {score !== undefined && (
+            <span className="text-micro text-neutral-400 font-medium">
+              Score: {score}
+            </span>
+          )}
+          <span className={`
+            flex items-center gap-[6px]
+            text-small font-medium
+            rounded-radius-sm
+            px-space-sm py-[2px]
+            ${safety.classes}
+          `}>
+            <span className={`w-[6px] h-[6px] rounded-radius-full ${safety.dot}`} />
+            {safety.label}
+          </span>
+        </div>
       </div>
 
       {/* Product name */}
