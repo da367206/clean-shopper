@@ -5,6 +5,7 @@ export default function CategoryTag({ label, isActive = false, onClick }) {
     text-small font-medium
     rounded-radius-sm
     px-space-sm py-[2px]
+    whitespace-nowrap
     transition-colors duration-150
   `
 

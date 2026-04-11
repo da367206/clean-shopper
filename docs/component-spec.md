@@ -1,6 +1,6 @@
 # Component Spec: Clean Shopper V1
 
-**Version:** 1.1
+**Version:** 1.0
 **Last Updated:** 2026-04-11
 **Source:** Derived from CLAUDE.md, docs/design-system.md, and tailwind.config.js
 
@@ -17,36 +17,37 @@ This is the canonical component inventory for V1. Before creating a new componen
 |---|---|---|---|
 | `name` | string | Yes | Product name |
 | `safetyScore` | `'clean' \| 'caution' \| 'avoid'` | Yes | Drives badge color and label |
-| `score` | number | No | Numeric safety score displayed next to badge |
+| `score` | number | No | Numeric safety score (0–100); displayed in top row when provided |
 | `category` | string | Yes | Product category label |
 | `description` | string | Yes | Short product description (1–2 sentences) |
 | `onClick` | function | No | Handler for card tap/click |
-| `onSave` | function | No | Handler for save action — renders save button when provided |
-| `isSaved` | boolean | No | Controls saved state of the save button |
+| `onSave` | function | No | When provided, renders a Save to list button |
+| `isSaved` | boolean | No | Changes save button label to "Saved" when true |
 
 ### Visual Structure
 ```
 div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-space-lg.flex.flex-col.gap-space-sm
-  h3.text-h3.text-neutral-900                              // product name (always first)
-  div.self-start.flex.items-center.gap-space-sm            // safety row
-    SafetyBadge (size="sm")                                // clean/caution/avoid
-    span.text-small.text-neutral-600.font-semibold         // "Score: {n}" (optional)
-  p.text-small.text-neutral-600.leading-relaxed            // description
-  div.self-start                                           // category (always last, before save)
-    CategoryTag
-  div.pt-space-xs (conditional on onSave)                  // save button
-    Button (variant="secondary", size="sm")
+  h3.text-h3.text-neutral-900                    // product name
+  div.flex.items-center.gap-space-sm             // badge + score row
+    SafetyBadge(size="sm")                       // clean/caution/avoid badge
+    span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
+  p.text-small.text-neutral-600                  // description
+  div.flex.items-center.justify-between          // bottom row
+    CategoryTag                                   // category label
+    Button(variant="secondary", size="sm")        // "Save to list" / "Saved" (if onSave provided)
 ```
 
 ### States
 - **Default:** `shadow-shadow-sm`, `border-neutral-200`
 - **Hover:** `shadow-shadow-md`, `transition-shadow duration-200`
+- **Saved:** Save button label changes to "Saved" when `isSaved` is true
 - **Loading:** Render skeleton — `bg-neutral-100 animate-pulse` blocks replacing name, badge, and description
 
 ### Usage Rules
 - Use for every product displayed in a list or grid
 - Do not use for a single featured product that needs full detail — that warrants a product detail view
-- Always pass all four required props; do not render with partial data
+- Always pass all required props (`name`, `safetyScore`, `category`, `description`); do not render with partial data
+- Pass `onSave` only when the save action is contextually appropriate (e.g., browse and search results, not inside the saved library)
 
 ---
 
@@ -63,26 +64,21 @@ div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-spac
 ### Visual Structure
 ```
 span.inline-flex.items-center.rounded-radius-sm.font-medium
-  svg (icon) or span.rounded-radius-full (dot)     // indicator
+  span.rounded-radius-full                         // status dot
   text label
 ```
 
-**Indicator type per score:**
-- `clean` — checkmark SVG icon (inline, `currentColor`)
-- `caution` — warning triangle SVG icon (inline, `currentColor`)
-- `avoid` — colored dot (`span.rounded-radius-full`)
-
 **Size variants:**
-| Size | Padding | Font | Dot | Icon | Gap | Usage |
-|---|---|---|---|---|---|---|
-| `sm` | `px-space-sm py-[2px]` | `text-small` | `w-[6px] h-[6px]` | `w-[10px] h-[10px]` | `gap-[6px]` | Inside ProductCard |
-| `md` | `px-space-md py-space-xs` | `text-body` | `w-[8px] h-[8px]` | `w-[12px] h-[12px]` | `gap-space-xs` | Product detail page |
+| Size | Padding | Font | Dot | Gap | Usage |
+|---|---|---|---|---|---|
+| `sm` | `px-space-sm py-[2px]` | `text-small` | `w-[6px] h-[6px]` | `gap-[6px]` | Inside ProductCard |
+| `md` | `px-space-md py-space-xs` | `text-body` | `w-[8px] h-[8px]` | `gap-space-xs` | Product detail page |
 
 **Color mapping (Tailwind classes):**
 | Score | Badge classes | Dot class |
 |---|---|---|
-| `clean` | `bg-success/10 text-success` | — (uses icon) |
-| `caution` | `bg-warning/10 text-warning` | — (uses icon) |
+| `clean` | `bg-success/10 text-success` | `bg-success` |
+| `caution` | `bg-warning/10 text-warning` | `bg-warning` |
 | `avoid` | `bg-error/10 text-error` | `bg-error` |
 
 ### States
