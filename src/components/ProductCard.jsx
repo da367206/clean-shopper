@@ -18,18 +18,19 @@ export default function ProductCard({ name, safetyScore, score, category, descri
       onClick={onClick}
       role={onClick ? 'button' : undefined}
     >
-      {/* Top row — category tag + safety badge */}
+      {/* Category + score */}
       <div className="flex items-center justify-between gap-space-sm">
         <CategoryTag label={category} />
+        {score !== undefined && (
+          <span className="text-small text-neutral-600 font-semibold">
+            Score: {score}
+          </span>
+        )}
+      </div>
 
-        <div className="flex items-center gap-space-sm">
-          {score !== undefined && (
-            <span className="text-micro text-neutral-400 font-medium">
-              Score: {score}
-            </span>
-          )}
-          <SafetyBadge score={safetyScore} size="sm" />
-        </div>
+      {/* Safety badge */}
+      <div className="self-start">
+        <SafetyBadge score={safetyScore} size="sm" />
       </div>
 
       {/* Product name */}
