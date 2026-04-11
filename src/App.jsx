@@ -2,6 +2,7 @@ import { useState } from 'react'
 import NavBar from './components/NavBar'
 import Sidebar from './components/Sidebar'
 import BrowsePage from './features/browse/BrowsePage'
+import SearchPage from './features/search/SearchPage'
 
 const LogoIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -34,7 +35,7 @@ export default function App() {
       {/* Main content */}
       <main className="md:pl-56">
         <div className="max-w-5xl mx-auto p-space-xl md:p-space-3xl pb-space-4xl md:pb-space-3xl">
-          <BrowsePage />
+          {activeTab === 'search' ? <SearchPage /> : <BrowsePage />}
         </div>
       </main>
 
