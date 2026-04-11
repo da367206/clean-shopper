@@ -18,14 +18,14 @@ const VARIANT_CLASSES = {
 }
 
 const SIZE_CLASSES = {
-  sm: 'px-space-md py-[6px] text-small',
+  sm: 'px-space-md py-space-2xs text-small',
   md: 'px-space-lg py-space-sm text-body',
   lg: 'px-space-xl py-space-md text-body font-semibold',
 }
 
 const Spinner = () => (
   <svg
-    className="animate-spin w-[18px] h-[18px]"
+    className="animate-spin w-icon-sm h-icon-sm"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"

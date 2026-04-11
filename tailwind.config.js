@@ -46,6 +46,7 @@ export default {
       },
 
       spacing: {
+        'space-2xs': '6px',
         'space-xs':  '4px',
         'space-sm':  '8px',
         'space-md':  '16px',
@@ -54,6 +55,12 @@ export default {
         'space-2xl': '48px',
         'space-3xl': '64px',
         'space-4xl': '96px',
+        'icon-sm':   '18px',
+        'touch':     '48px',
+      },
+
+      minHeight: {
+        'touch': '48px',
       },
 
       borderRadius: {

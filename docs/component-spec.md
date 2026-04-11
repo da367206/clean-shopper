@@ -1,7 +1,7 @@
 # Component Spec: Clean Shopper V1
 
 **Version:** 1.0
-**Last Updated:** 2026-04-11
+**Last Updated:** 2026-04-11 (added Sidebar; added space-2xs and icon-sm tokens)
 **Source:** Derived from CLAUDE.md, docs/design-system.md, and tailwind.config.js
 
 This is the canonical component inventory for V1. Before creating a new component, check this list. Do not duplicate a pattern already covered here. All visual values must use Tailwind theme classes from tailwind.config.js — no hardcoded hex colors, pixel sizes, or spacing values.
@@ -20,14 +20,18 @@ This is the canonical component inventory for V1. Before creating a new componen
 | `score` | number | No | Numeric safety score (0–100); displayed in top row when provided |
 | `category` | string | Yes | Product category label |
 | `description` | string | Yes | Short product description (1–2 sentences) |
+| `imageUrl` | string | No | Product image URL — renders image at top of card; falls back to placeholder icon if absent |
 | `onClick` | function | No | Handler for card tap/click |
 | `onSave` | function | No | When provided, renders a Save to list button |
 | `isSaved` | boolean | No | Changes save button label to "Saved" when true |
 
 ### Visual Structure
 ```
-div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-space-lg.flex.flex-col.gap-space-sm
-  h3.text-h3.text-neutral-900                    // product name
+div.bg-white.border.border-neutral-200.rounded-radius-lg.overflow-hidden.flex.flex-col
+  div.w-full.h-[160px].bg-neutral-100            // image area (always first)
+    img.object-contain or placeholder SVG        // falls back to icon if no imageUrl
+  div.flex.flex-col.gap-space-sm.p-space-lg      // card body
+    h3.text-h3.text-neutral-900                  // product name
   div.flex.items-center.gap-space-sm             // badge + score row
     SafetyBadge(size="sm")                       // clean/caution/avoid badge
     span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
@@ -317,6 +321,56 @@ div.flex.flex-col.gap-space-xs
 - Always include a `label` — do not use placeholder text as a substitute for a label
 - Use `SearchBar` for search interactions, not `InputField`
 - Show error messages below the field, not as alerts or toasts
+
+---
+
+## Sidebar
+
+**Purpose:** Persistent desktop navigation panel. Displays the app logo and nav links for all primary sections. Hidden on mobile — the NavBar handles mobile navigation.
+
+### Props
+| Prop | Type | Required | Description |
+|---|---|---|---|
+| `activeTab` | `'home' \| 'search' \| 'lists' \| 'profile'` | Yes | Highlights the current section |
+| `onNavigate` | function | Yes | Handler called with tab key on click |
+
+### Visual Structure
+```
+aside.hidden.md:flex.flex-col
+      .fixed.top-0.left-0.h-full.w-56
+      .bg-white.border-r.border-neutral-200.shadow-shadow-sm
+      .px-space-md.py-space-xl.gap-space-xl
+
+  // Logo lockup
+  div.flex.items-center.gap-space-sm.px-space-sm.text-primary
+    LogoIcon                                      // shield + checkmark SVG
+    span.text-h4.font-semibold.text-neutral-900   // "Clean Shopper"
+
+  // Nav links
+  nav.flex.flex-col.gap-space-xs
+    // Each nav item
+    button.flex.items-center.gap-space-md
+           .px-space-md.py-space-sm
+           .rounded-radius-md.text-body.font-medium
+           .transition-colors.duration-150
+      Icon                                        // 20×20 SVG
+      span                                        // label
+```
+
+**Nav item color states:**
+- Active: `bg-primary/10 text-primary`
+- Inactive: `text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900`
+
+### States
+- **Active tab:** `bg-primary/10 text-primary`
+- **Inactive tab:** `text-neutral-600`
+- **Mobile:** Hidden (`hidden md:flex`) — NavBar handles mobile navigation
+
+### Usage Rules
+- Render on every primary app screen alongside NavBar
+- Always keep all four nav items visible — do not conditionally hide items
+- Do not show Sidebar inside modals or overlays
+- Sidebar and NavBar always receive the same `activeTab` and `onNavigate` props
 
 ---
 
