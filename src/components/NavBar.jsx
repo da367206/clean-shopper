@@ -48,6 +48,7 @@ const TABS = [
 export default function NavBar({ activeTab, onNavigate }) {
   return (
     <nav className="
+      md:hidden
       fixed bottom-0 left-0 right-0
       bg-white
       border-t border-neutral-200
