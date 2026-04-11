@@ -82,6 +82,7 @@ Base unit: 4px
 
 | Token Name | Value | Usage Rule |
 |---|---|---|
+| space-2xs | 6px | Minimal vertical padding inside compact components (e.g. Button `sm` size). |
 | space-xs | 4px | Icon internal padding, tight inline gaps between adjacent elements. |
 | space-sm | 8px | Compact padding within small components (badges, tags, chips). |
 | space-md | 16px | Standard internal component padding (buttons, inputs, list items). |
@@ -90,6 +91,13 @@ Base unit: 4px
 | space-2xl | 48px | Between major sections on a page. |
 | space-3xl | 64px | Page-level top/bottom margins, large section gap at breakpoints. |
 | space-4xl | 96px | Hero sections, full-bleed spacing, generous top-of-page breathing room. |
+
+### Sizing Tokens
+
+| Token Name | Value | Usage Rule |
+|---|---|---|
+| icon-sm | 18px | Small inline icon dimensions (e.g. spinner inside Button). |
+| touch | 48px | Minimum touch target height. Apply via `min-h-touch` when needed. |
 
 ---
 

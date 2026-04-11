@@ -1,7 +1,7 @@
 # Component Spec: Clean Shopper V1
 
 **Version:** 1.0
-**Last Updated:** 2026-04-11 (added Sidebar; added space-2xs and icon-sm tokens)
+**Last Updated:** 2026-04-11
 **Source:** Derived from CLAUDE.md, docs/design-system.md, and tailwind.config.js
 
 This is the canonical component inventory for V1. Before creating a new component, check this list. Do not duplicate a pattern already covered here. All visual values must use Tailwind theme classes from tailwind.config.js — no hardcoded hex colors, pixel sizes, or spacing values.
@@ -28,17 +28,19 @@ This is the canonical component inventory for V1. Before creating a new componen
 ### Visual Structure
 ```
 div.bg-white.border.border-neutral-200.rounded-radius-lg.overflow-hidden.flex.flex-col
-  div.w-full.h-[160px].bg-neutral-100            // image area (always first)
-    img.object-contain or placeholder SVG        // falls back to icon if no imageUrl
+  div.relative.w-full.h-[200px].bg-neutral-50    // image area (always first)
+    img.w-full.h-full.object-cover               // product image (if imageUrl provided)
+    OR div.flex.flex-col.items-center            // placeholder: Clean Shopper logo + wordmark
+       .text-primary.opacity-30
+    div.absolute.top-space-sm.left-space-sm      // category tag overlay
+      CategoryTag                                // always overlaid on image, top-left
   div.flex.flex-col.gap-space-sm.p-space-lg      // card body
     h3.text-h3.text-neutral-900                  // product name
-  div.flex.items-center.gap-space-sm             // badge + score row
-    SafetyBadge(size="sm")                       // clean/caution/avoid badge
-    span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
-  p.text-small.text-neutral-600                  // description
-  div.flex.items-center.justify-between          // bottom row
-    CategoryTag                                   // category label
-    Button(variant="secondary", size="sm")        // "Save to list" / "Saved" (if onSave provided)
+    div.flex.items-center.gap-space-sm           // badge + score row
+      SafetyBadge(size="sm")                     // clean/caution/avoid badge
+      span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
+    p.text-small.text-neutral-600                // description
+    Button(variant="secondary", size="sm")       // "Save to list" / "Saved" (if onSave provided)
 ```
 
 ### States
@@ -164,7 +166,7 @@ button.text-small.font-medium.rounded-radius-sm.px-space-sm.py-[2px]
 - **Hover (filter):** `bg-neutral-200`
 
 ### Usage Rules
-- Render as a `<span>` when display-only (inside ProductCard)
+- Render as a `<span>` when display-only (inside ProductCard image overlay)
 - Render as a `<button>` when interactive (filter chips)
 - Do not use CategoryTag for safety scores — use SafetyBadge
 
@@ -257,7 +259,7 @@ button.bg-transparent.text-neutral-600.font-medium.rounded-radius-md
 **Size modifiers:**
 | Size | Padding | Font |
 |---|---|---|
-| `sm` | `px-space-md py-[6px]` | `text-small` |
+| `sm` | `px-space-md py-space-2xs` | `text-small` |
 | `md` | `px-space-lg py-space-sm` | `text-body` |
 | `lg` | `px-space-xl py-space-md` | `text-body font-semibold` |
 
