@@ -82,6 +82,7 @@ Base unit: 4px
 
 | Token Name | Value | Usage Rule |
 |---|---|---|
+| space-3xs | 2px | Minimum padding for tight badges and pills (e.g. SafetyBadge `sm` vertical padding). |
 | space-2xs | 6px | Minimal vertical padding inside compact components (e.g. Button `sm` size). |
 | space-xs | 4px | Icon internal padding, tight inline gaps between adjacent elements. |
 | space-sm | 8px | Compact padding within small components (badges, tags, chips). |
@@ -98,6 +99,7 @@ Base unit: 4px
 |---|---|---|
 | icon-sm | 18px | Small inline icon dimensions (e.g. spinner inside Button). |
 | touch | 48px | Minimum touch target height. Apply via `min-h-touch` when needed. |
+| img-card | 200px | Fixed height for product card image areas. |
 
 ---
 

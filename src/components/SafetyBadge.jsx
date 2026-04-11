@@ -39,7 +39,7 @@ const SAFETY_CONFIG = {
 }
 
 const SIZE_CONFIG = {
-  sm: { padding: 'px-space-sm py-[2px]', font: 'text-small', iconSize: 12, gap: 'gap-[5px]' },
+  sm: { padding: 'px-space-sm py-space-3xs', font: 'text-small', iconSize: 12, gap: 'gap-space-xs' },
   md: { padding: 'px-space-md py-space-xs', font: 'text-body', iconSize: 14, gap: 'gap-space-xs' },
 }
 

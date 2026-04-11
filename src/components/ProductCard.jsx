@@ -25,7 +25,7 @@ export default function ProductCard({ name, safetyScore, score, category, descri
       role={onClick ? 'button' : undefined}
     >
       {/* Product image */}
-      <div className="relative w-full h-[200px] bg-neutral-50 flex items-center justify-center overflow-hidden flex-shrink-0">
+      <div className="relative w-full h-img-card bg-neutral-50 flex items-center justify-center overflow-hidden flex-shrink-0">
         {imageUrl
           ? <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
           : <div className="flex flex-col items-center gap-space-xs text-primary opacity-30">
@@ -36,27 +36,40 @@ export default function ProductCard({ name, safetyScore, score, category, descri
               <span className="text-micro font-medium tracking-wide uppercase">Clean Shopper</span>
             </div>
         }
+        {/* Category tag — top left */}
         <div className="absolute top-space-sm left-space-sm">
           <CategoryTag label={category} />
         </div>
+        {/* Score badge — top right */}
+        {score !== undefined && (
+          <div className="absolute top-space-sm right-space-sm">
+            <span className={`
+              inline-flex flex-col items-center justify-center
+              w-[44px] h-[44px]
+              rounded-radius-md
+              shadow-shadow-md
+              ${safetyScore === 'clean'   ? 'bg-success'  :
+                safetyScore === 'caution' ? 'bg-warning'  :
+                                            'bg-error'}
+            `}>
+              <span className="text-h4 font-semibold text-white leading-none">{score}</span>
+              <span className="text-micro text-white/80 leading-none mt-[2px]">score</span>
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Card body */}
-      <div className="flex flex-col gap-space-sm p-space-lg">
+      <div className="flex flex-col gap-space-sm p-space-lg flex-1">
 
       {/* Product name */}
-      <h3 className="text-h3 text-neutral-900 leading-snug">
+      <h3 className="text-h3 text-neutral-900 leading-snug line-clamp-2">
         {name}
       </h3>
 
-      {/* Safety badge + score */}
+      {/* Safety badge */}
       <div className="flex items-center gap-space-sm">
         <SafetyBadge score={safetyScore} size="sm" />
-        {score !== undefined && (
-          <span className="text-small text-neutral-600 font-semibold">
-            Score: {score}
-          </span>
-        )}
       </div>
 
       {/* Description */}
@@ -66,10 +79,12 @@ export default function ProductCard({ name, safetyScore, score, category, descri
 
       {/* Save to list */}
       {onSave && (
-        <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onSave() }}>
-          <BookmarkIcon />
-          {isSaved ? 'Saved' : 'Save to list'}
-        </Button>
+        <div className="mt-auto">
+          <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onSave() }}>
+            <BookmarkIcon />
+            {isSaved ? 'Saved' : 'Save to list'}
+          </Button>
+        </div>
       )}
 
       </div>{/* end card body */}

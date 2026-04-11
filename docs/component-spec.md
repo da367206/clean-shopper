@@ -28,17 +28,22 @@ This is the canonical component inventory for V1. Before creating a new componen
 ### Visual Structure
 ```
 div.bg-white.border.border-neutral-200.rounded-radius-lg.overflow-hidden.flex.flex-col
-  div.relative.w-full.h-[200px].bg-neutral-50    // image area (always first)
+  div.relative.w-full.h-img-card.bg-neutral-50    // image area (always first)
     img.w-full.h-full.object-cover               // product image (if imageUrl provided)
     OR div.flex.flex-col.items-center            // placeholder: Clean Shopper logo + wordmark
        .text-primary.opacity-30
-    div.absolute.top-space-sm.left-space-sm      // category tag overlay
-      CategoryTag                                // always overlaid on image, top-left
+    div.absolute.top-space-sm.left-space-sm      // category tag overlay — top-left
+      CategoryTag
+    div.absolute.top-space-sm.right-space-sm     // score badge overlay — top-right (if score provided)
+      span.inline-flex.flex-col.items-center.justify-center
+           .w-[44px].h-[44px].rounded-radius-md.shadow-shadow-md
+           .bg-success|bg-warning|bg-error       // color matches safetyScore
+        span.text-h4.font-semibold.text-white    // numeric score
+        span.text-micro.text-white/80            // "score" label
   div.flex.flex-col.gap-space-sm.p-space-lg      // card body
     h3.text-h3.text-neutral-900                  // product name
-    div.flex.items-center.gap-space-sm           // badge + score row
+    div.flex.items-center.gap-space-sm           // badge row
       SafetyBadge(size="sm")                     // clean/caution/avoid badge
-      span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
     p.text-small.text-neutral-600                // description
     Button(variant="secondary", size="sm")       // "Save to list" / "Saved" (if onSave provided)
 ```
@@ -77,7 +82,7 @@ span.inline-flex.items-center.rounded-radius-sm.font-medium
 **Size variants:**
 | Size | Padding | Font | Dot | Gap | Usage |
 |---|---|---|---|---|---|
-| `sm` | `px-space-sm py-[2px]` | `text-small` | `w-[6px] h-[6px]` | `gap-[6px]` | Inside ProductCard |
+| `sm` | `px-space-sm py-space-3xs` | `text-small` | `w-[6px] h-[6px]` | `gap-space-xs` | Inside ProductCard |
 | `md` | `px-space-md py-space-xs` | `text-body` | `w-[8px] h-[8px]` | `gap-space-xs` | Product detail page |
 
 **Color mapping (Tailwind classes):**
