@@ -100,6 +100,7 @@ Base unit: 4px
 | icon-sm | 18px | Small inline icon dimensions (e.g. spinner inside Button). |
 | touch | 48px | Minimum touch target height. Apply via `min-h-touch` when needed. |
 | img-card | 200px | Fixed height for product card image areas. |
+| score-badge | 44px | Width and height of the score badge overlay on product cards. |
 
 ---
 

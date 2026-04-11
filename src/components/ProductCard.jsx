@@ -45,7 +45,7 @@ export default function ProductCard({ name, safetyScore, score, category, descri
           <div className="absolute top-space-sm right-space-sm">
             <span className={`
               inline-flex flex-col items-center justify-center
-              w-[44px] h-[44px]
+              w-score-badge h-score-badge
               rounded-radius-md
               shadow-shadow-md
               ${safetyScore === 'clean'   ? 'bg-success'  :
@@ -53,7 +53,7 @@ export default function ProductCard({ name, safetyScore, score, category, descri
                                             'bg-error'}
             `}>
               <span className="text-h4 font-semibold text-white leading-none">{score}</span>
-              <span className="text-micro text-white/80 leading-none mt-[2px]">score</span>
+              <span className="text-micro text-white/80 leading-none mt-space-3xs">score</span>
             </span>
           </div>
         )}

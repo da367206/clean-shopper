@@ -59,6 +59,7 @@ export default {
         'icon-sm':   '18px',
         'touch':     '48px',
         'img-card':  '200px',
+        'score-badge': '44px',
       },
 
       minHeight: {
