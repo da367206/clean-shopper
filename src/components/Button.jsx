@@ -54,7 +54,7 @@ export default function Button({
       disabled={disabled || isLoading}
       className={`
         inline-flex items-center justify-center gap-space-xs
-        font-medium rounded-radius-md
+        font-medium rounded-radius-md whitespace-nowrap shrink-0
         transition-colors duration-150
         ${variantClasses}
         ${sizeClasses}
