@@ -55,10 +55,16 @@ div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-spac
 
 ### Visual Structure
 ```
-span.inline-flex.items-center.gap-[6px].rounded-radius-sm.px-space-sm.py-[2px].text-small.font-medium
-  span.w-[6px].h-[6px].rounded-radius-full        // status dot
+span.inline-flex.items-center.rounded-radius-sm.font-medium
+  span.rounded-radius-full                         // status dot
   text label
 ```
+
+**Size variants:**
+| Size | Padding | Font | Dot | Gap | Usage |
+|---|---|---|---|---|---|
+| `sm` | `px-space-sm py-[2px]` | `text-small` | `w-[6px] h-[6px]` | `gap-[6px]` | Inside ProductCard |
+| `md` | `px-space-md py-space-xs` | `text-body` | `w-[8px] h-[8px]` | `gap-space-xs` | Product detail page |
 
 **Color mapping (Tailwind classes):**
 | Score | Badge classes | Dot class |

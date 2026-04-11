@@ -1,24 +1,8 @@
-const SAFETY_CONFIG = {
-  clean: {
-    label: 'Clean',
-    classes: 'bg-success/10 text-success',
-    dot: 'bg-success',
-  },
-  caution: {
-    label: 'Caution',
-    classes: 'bg-warning/10 text-warning',
-    dot: 'bg-warning',
-  },
-  avoid: {
-    label: 'Avoid',
-    classes: 'bg-error/10 text-error',
-    dot: 'bg-error',
-  },
-}
+import SafetyBadge from './SafetyBadge'
+import CategoryTag from './CategoryTag'
+import Button from './Button'
 
-export default function ProductCard({ name, safetyScore, score, category, description, onClick }) {
-  const safety = SAFETY_CONFIG[safetyScore] ?? SAFETY_CONFIG.caution
-
+export default function ProductCard({ name, safetyScore, score, category, description, onClick, onSave, isSaved }) {
   return (
     <div
       className="
@@ -34,18 +18,9 @@ export default function ProductCard({ name, safetyScore, score, category, descri
       onClick={onClick}
       role={onClick ? 'button' : undefined}
     >
-
       {/* Top row — category tag + safety badge */}
       <div className="flex items-center justify-between gap-space-sm">
-        <span className="
-          text-small font-medium
-          text-neutral-600
-          bg-neutral-100
-          rounded-radius-sm
-          px-space-sm py-[2px]
-        ">
-          {category}
-        </span>
+        <CategoryTag label={category} />
 
         <div className="flex items-center gap-space-sm">
           {score !== undefined && (
@@ -53,16 +28,7 @@ export default function ProductCard({ name, safetyScore, score, category, descri
               Score: {score}
             </span>
           )}
-          <span className={`
-            flex items-center gap-[6px]
-            text-small font-medium
-            rounded-radius-sm
-            px-space-sm py-[2px]
-            ${safety.classes}
-          `}>
-            <span className={`w-[6px] h-[6px] rounded-radius-full ${safety.dot}`} />
-            {safety.label}
-          </span>
+          <SafetyBadge score={safetyScore} size="sm" />
         </div>
       </div>
 
@@ -76,6 +42,14 @@ export default function ProductCard({ name, safetyScore, score, category, descri
         {description}
       </p>
 
+      {/* Save to list */}
+      {onSave && (
+        <div className="pt-space-xs">
+          <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onSave() }}>
+            {isSaved ? 'Saved' : 'Save to list'}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
