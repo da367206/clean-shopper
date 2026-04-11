@@ -18,9 +18,14 @@ export default function ProductCard({ name, safetyScore, score, category, descri
       onClick={onClick}
       role={onClick ? 'button' : undefined}
     >
-      {/* Category + score */}
-      <div className="flex items-center justify-between gap-space-sm">
-        <CategoryTag label={category} />
+      {/* Product name */}
+      <h3 className="text-h3 text-neutral-900 leading-snug">
+        {name}
+      </h3>
+
+      {/* Safety badge + score */}
+      <div className="flex items-center gap-space-sm">
+        <SafetyBadge score={safetyScore} size="sm" />
         {score !== undefined && (
           <span className="text-small text-neutral-600 font-semibold">
             Score: {score}
@@ -28,29 +33,20 @@ export default function ProductCard({ name, safetyScore, score, category, descri
         )}
       </div>
 
-      {/* Safety badge */}
-      <div className="self-start">
-        <SafetyBadge score={safetyScore} size="sm" />
-      </div>
-
-      {/* Product name */}
-      <h3 className="text-h3 text-neutral-900 leading-snug">
-        {name}
-      </h3>
-
       {/* Description */}
       <p className="text-small text-neutral-600 leading-relaxed">
         {description}
       </p>
 
-      {/* Save to list */}
-      {onSave && (
-        <div className="pt-space-xs">
+      {/* Category + save */}
+      <div className="flex items-center justify-between pt-space-xs">
+        <CategoryTag label={category} />
+        {onSave && (
           <Button variant="secondary" size="sm" onClick={(e) => { e.stopPropagation(); onSave() }}>
             {isSaved ? 'Saved' : 'Save to list'}
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

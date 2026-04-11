@@ -27,13 +27,14 @@ This is the canonical component inventory for V1. Before creating a new componen
 ### Visual Structure
 ```
 div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-space-lg.flex.flex-col.gap-space-sm
-  div.flex.items-center.justify-between          // top row
-    CategoryTag                                   // category label
-    span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
-  SafetyBadge(size="sm")                         // clean/caution/avoid badge
   h3.text-h3.text-neutral-900                    // product name
+  div.flex.items-center.gap-space-sm             // badge + score row
+    SafetyBadge(size="sm")                       // clean/caution/avoid badge
+    span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
   p.text-small.text-neutral-600                  // description
-  Button(variant="secondary", size="sm")         // "Save to list" / "Saved" (if onSave provided)
+  div.flex.items-center.justify-between          // bottom row
+    CategoryTag                                   // category label
+    Button(variant="secondary", size="sm")        // "Save to list" / "Saved" (if onSave provided)
 ```
 
 ### States
