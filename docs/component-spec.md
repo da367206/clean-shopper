@@ -1,7 +1,7 @@
 # Component Spec: Clean Shopper V1
 
 **Version:** 1.0
-**Last Updated:** 2026-04-04
+**Last Updated:** 2026-04-11
 **Source:** Derived from CLAUDE.md, docs/design-system.md, and tailwind.config.js
 
 This is the canonical component inventory for V1. Before creating a new component, check this list. Do not duplicate a pattern already covered here. All visual values must use Tailwind theme classes from tailwind.config.js — no hardcoded hex colors, pixel sizes, or spacing values.
@@ -17,29 +17,36 @@ This is the canonical component inventory for V1. Before creating a new componen
 |---|---|---|---|
 | `name` | string | Yes | Product name |
 | `safetyScore` | `'clean' \| 'caution' \| 'avoid'` | Yes | Drives badge color and label |
+| `score` | number | No | Numeric safety score (0–100); displayed in top row when provided |
 | `category` | string | Yes | Product category label |
 | `description` | string | Yes | Short product description (1–2 sentences) |
 | `onClick` | function | No | Handler for card tap/click |
+| `onSave` | function | No | When provided, renders a Save to list button |
+| `isSaved` | boolean | No | Changes save button label to "Saved" when true |
 
 ### Visual Structure
 ```
 div.bg-white.border.border-neutral-200.rounded-radius-lg.shadow-shadow-sm.p-space-lg.flex.flex-col.gap-space-sm
   div.flex.items-center.justify-between          // top row
     CategoryTag                                   // category label
-    SafetyBadge                                   // clean/caution/avoid
+    span.text-small.text-neutral-600.font-semibold // "Score: {score}" (if score provided)
+  SafetyBadge(size="sm")                         // clean/caution/avoid badge
   h3.text-h3.text-neutral-900                    // product name
   p.text-small.text-neutral-600                  // description
+  Button(variant="secondary", size="sm")         // "Save to list" / "Saved" (if onSave provided)
 ```
 
 ### States
 - **Default:** `shadow-shadow-sm`, `border-neutral-200`
 - **Hover:** `shadow-shadow-md`, `transition-shadow duration-200`
+- **Saved:** Save button label changes to "Saved" when `isSaved` is true
 - **Loading:** Render skeleton — `bg-neutral-100 animate-pulse` blocks replacing name, badge, and description
 
 ### Usage Rules
 - Use for every product displayed in a list or grid
 - Do not use for a single featured product that needs full detail — that warrants a product detail view
-- Always pass all four required props; do not render with partial data
+- Always pass all required props (`name`, `safetyScore`, `category`, `description`); do not render with partial data
+- Pass `onSave` only when the save action is contextually appropriate (e.g., browse and search results, not inside the saved library)
 
 ---
 
