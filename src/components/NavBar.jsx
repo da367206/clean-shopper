@@ -47,32 +47,74 @@ const TABS = [
 
 export default function NavBar({ activeTab, onNavigate }) {
   return (
-    <nav className="
-      fixed bottom-0 left-0 right-0
-      bg-white
-      border-t border-neutral-200
-      shadow-shadow-md
-      flex items-center justify-around
-      px-space-md py-space-sm
-    ">
-      {TABS.map(({ key, label, icon }) => {
-        const isActive = activeTab === key
-        return (
-          <button
-            key={key}
-            onClick={() => onNavigate(key)}
-            className={`
-              flex flex-col items-center gap-[4px]
-              text-micro font-medium
-              transition-colors duration-150
-              ${isActive ? 'text-primary' : 'text-neutral-400 hover:text-neutral-600'}
-            `}
-          >
-            {icon}
-            <span>{label}</span>
-          </button>
-        )
-      })}
-    </nav>
+    <>
+      {/* Desktop: left sidebar */}
+      <nav className="
+        hidden md:flex
+        fixed top-0 left-0 bottom-0
+        w-56
+        bg-white border-r border-neutral-200
+        flex-col
+        pt-space-2xl px-space-md gap-space-xs
+      ">
+        <span className="text-h4 font-semibold text-primary px-space-sm mb-space-lg">
+          Clean Shopper
+        </span>
+
+        {TABS.map(({ key, label, icon }) => {
+          const isActive = activeTab === key
+          return (
+            <button
+              key={key}
+              onClick={() => onNavigate(key)}
+              className={`
+                flex items-center gap-space-sm
+                px-space-sm py-space-sm
+                rounded-radius-md
+                text-body font-medium
+                transition-colors duration-150
+                w-full text-left
+                ${isActive
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
+                }
+              `}
+            >
+              {icon}
+              <span>{label}</span>
+            </button>
+          )
+        })}
+      </nav>
+
+      {/* Mobile: bottom bar */}
+      <nav className="
+        md:hidden
+        fixed bottom-0 left-0 right-0
+        bg-white border-t border-neutral-200
+        shadow-shadow-md
+        flex items-center justify-around
+        px-space-md py-space-sm
+      ">
+        {TABS.map(({ key, label, icon }) => {
+          const isActive = activeTab === key
+          return (
+            <button
+              key={key}
+              onClick={() => onNavigate(key)}
+              className={`
+                flex flex-col items-center gap-[4px]
+                text-micro font-medium
+                transition-colors duration-150
+                ${isActive ? 'text-primary' : 'text-neutral-400 hover:text-neutral-600'}
+              `}
+            >
+              {icon}
+              <span>{label}</span>
+            </button>
+          )
+        })}
+      </nav>
+    </>
   )
 }
