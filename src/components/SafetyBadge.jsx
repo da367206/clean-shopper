@@ -23,17 +23,20 @@ const AvoidIcon = ({ size }) => (
 const SAFETY_CONFIG = {
   clean: {
     label: 'Clean',
-    classes: 'bg-success/10 text-success',
+    light: 'bg-success/10 text-success',
+    solid: 'bg-white text-success',
     Icon: CheckIcon,
   },
   caution: {
     label: 'Caution',
-    classes: 'bg-warning/10 text-warning',
+    light: 'bg-warning/10 text-warning',
+    solid: 'bg-white text-warning',
     Icon: CautionIcon,
   },
   avoid: {
     label: 'Avoid',
-    classes: 'bg-error/10 text-error',
+    light: 'bg-error/10 text-error',
+    solid: 'bg-error text-white',
     Icon: AvoidIcon,
   },
 }
@@ -43,7 +46,7 @@ const SIZE_CONFIG = {
   md: { padding: 'px-space-md py-space-xs', font: 'text-body', iconSize: 14, gap: 'gap-space-xs' },
 }
 
-export default function SafetyBadge({ score, size = 'md' }) {
+export default function SafetyBadge({ score, size = 'md', variant = 'light' }) {
   const safety = SAFETY_CONFIG[score] ?? SAFETY_CONFIG.caution
   const s = SIZE_CONFIG[size] ?? SIZE_CONFIG.md
 
@@ -55,7 +58,7 @@ export default function SafetyBadge({ score, size = 'md' }) {
       ${s.font}
       font-medium
       rounded-radius-sm
-      ${safety.classes}
+      ${variant === 'solid' ? safety.solid : safety.light}
     `}>
       <safety.Icon size={s.iconSize} />
       {safety.label}

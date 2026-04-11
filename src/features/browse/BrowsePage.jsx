@@ -55,11 +55,11 @@ export default function BrowsePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg [&>*]:max-w-sm">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="bg-white border border-neutral-200 rounded-radius-lg overflow-hidden flex flex-col">
-              <div className="h-[160px] bg-neutral-100 animate-pulse w-full flex-shrink-0" />
+              <div className="h-img-card bg-neutral-100 animate-pulse w-full flex-shrink-0" />
               <div className="flex flex-col gap-space-sm p-space-lg">
-                <div className="h-[20px] bg-neutral-100 animate-pulse rounded-radius-sm w-3/4" />
-                <div className="h-[16px] bg-neutral-100 animate-pulse rounded-radius-sm w-1/4" />
-                <div className="h-[40px] bg-neutral-100 animate-pulse rounded-radius-sm w-full" />
+                <div className="h-space-lg bg-neutral-100 animate-pulse rounded-radius-sm w-3/4" />
+                <div className="h-space-md bg-neutral-100 animate-pulse rounded-radius-sm w-1/4" />
+                <div className="h-space-xl bg-neutral-100 animate-pulse rounded-radius-sm w-full" />
               </div>
             </div>
           ))}

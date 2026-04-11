@@ -36,9 +36,9 @@ export default function ProductCard({ name, safetyScore, score, category, descri
               <span className="text-micro font-medium tracking-wide uppercase">Clean Shopper</span>
             </div>
         }
-        {/* Category tag — top left */}
+        {/* Safety badge — top left */}
         <div className="absolute top-space-sm left-space-sm">
-          <CategoryTag label={category} />
+          <SafetyBadge score={safetyScore} size="sm" variant="solid" />
         </div>
         {/* Score badge — top right */}
         {score !== undefined && (
@@ -67,9 +67,9 @@ export default function ProductCard({ name, safetyScore, score, category, descri
         {name}
       </h3>
 
-      {/* Safety badge */}
-      <div className="flex items-center gap-space-sm">
-        <SafetyBadge score={safetyScore} size="sm" />
+      {/* Category tag */}
+      <div>
+        <CategoryTag label={category} />
       </div>
 
       {/* Description */}

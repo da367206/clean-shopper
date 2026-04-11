@@ -63,7 +63,7 @@ export default function NavBar({ activeTab, onNavigate }) {
             key={key}
             onClick={() => onNavigate(key)}
             className={`
-              flex flex-col items-center gap-[4px]
+              flex flex-col items-center gap-space-xs
               text-micro font-medium
               transition-colors duration-150
               ${isActive ? 'text-primary' : 'text-neutral-400 hover:text-neutral-600'}

@@ -4,7 +4,7 @@ export default function CategoryTag({ label, isActive = false, onClick }) {
   const baseClasses = `
     text-small font-medium
     rounded-radius-sm
-    px-space-sm py-[2px]
+    px-space-sm py-space-3xs
     whitespace-nowrap
     transition-colors duration-150
   `

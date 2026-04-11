@@ -71,6 +71,7 @@ div.bg-white.border.border-neutral-200.rounded-radius-lg.overflow-hidden.flex.fl
 |---|---|---|---|
 | `score` | `'clean' \| 'caution' \| 'avoid'` | Yes | Determines color and label |
 | `size` | `'sm' \| 'md'` | No | `md` default; `sm` for compact contexts |
+| `variant` | `'light' \| 'solid'` | No | `light` default (tinted bg, colored text); `solid` for white bg with colored text — use on image overlays |
 
 ### Visual Structure
 ```
@@ -155,10 +156,10 @@ div.flex.items-center.gap-space-sm.w-full
 ```
 // Default (display only)
 span.inline-block.text-small.font-medium.text-neutral-600
-     .bg-neutral-100.rounded-radius-sm.px-space-sm.py-[2px]
+     .bg-neutral-100.rounded-radius-sm.px-space-sm.py-space-3xs
 
 // Interactive (filter mode)
-button.text-small.font-medium.rounded-radius-sm.px-space-sm.py-[2px]
+button.text-small.font-medium.rounded-radius-sm.px-space-sm.py-space-3xs
        .transition-colors.duration-150
 ```
 
@@ -195,7 +196,7 @@ nav.fixed.bottom-0.left-0.right-0
    .px-space-md.py-space-sm
 
   // Each tab
-  button.flex.flex-col.items-center.gap-[4px]
+  button.flex.flex-col.items-center.gap-space-xs
          .text-micro.font-medium
          .transition-colors.duration-150
     Icon                                          // tab icon
