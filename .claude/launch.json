@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "clean-shopper",
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["-c", "cd /Users/davidackley/Projects/ccd_course/clean-shopper/.claude/worktrees/reverent-yalow && PATH=/usr/local/bin:$PATH npm run dev -- --host"],
+      "port": 5173
+    }
+  ]
+}
