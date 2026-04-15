@@ -3,608 +3,661 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clean Shopper — Design System v2</title>
+<title>Clean Shopper — Design System v2.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: 'Poppins', sans-serif;
-    background: #FDFAF4;
-    color: #1E1A12;
-    font-size: 16px;
-    line-height: 1.6;
-    padding: 64px 40px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #fcfcf7;
+    color: #1c3a13;
+    padding: 64px 48px;
+    max-width: 960px;
+    margin: 0 auto;
   }
-
-  .page { max-width: 960px; margin: 0 auto; }
-
-  /* Header */
-  .ds-header {
-    border-bottom: 1px solid #E8D9BC;
-    padding-bottom: 32px;
+  h1.page-title {
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: #1c3a13;
+    margin-bottom: 8px;
+  }
+  .page-meta {
+    font-size: 14px;
+    color: #4a5e3c;
     margin-bottom: 64px;
   }
-  .ds-header h1 {
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #1E1A12;
-  }
-  .ds-header p {
-    color: #6B5E4A;
-    font-size: 14px;
-    margin-top: 6px;
-  }
-  .ds-meta {
-    display: flex;
-    gap: 24px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-  .ds-meta span {
-    font-size: 12px;
-    color: #AFA38C;
-  }
-  .ds-meta strong { color: #6B5E4A; }
-
-  /* Section */
-  .section {
-    margin-bottom: 72px;
-  }
-  .section-title {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #AFA38C;
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #E8D9BC;
-  }
-
-  /* Color swatches */
-  .swatch-group {
-    margin-bottom: 32px;
-  }
-  .swatch-group-title {
+  h2.section-title {
     font-size: 12px;
     font-weight: 500;
-    color: #6B5E4A;
-    margin-bottom: 12px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    color: #8a9a7c;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dde2d0;
   }
-  .swatches {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  .section {
+    margin-bottom: 64px;
+  }
+  /* Color swatches */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
   }
   .swatch {
-    width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
   .swatch-color {
     width: 100%;
     height: 80px;
     border-radius: 8px;
     border: 1px solid rgba(0,0,0,0.06);
-    margin-bottom: 10px;
   }
   .swatch-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1E1A12;
-    margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1c3a13;
   }
   .swatch-hex {
     font-size: 12px;
-    color: #6B5E4A;
-    font-family: 'Courier New', monospace;
-    margin-bottom: 4px;
+    color: #4a5e3c;
+    font-variant-numeric: tabular-nums;
   }
   .swatch-usage {
     font-size: 11px;
-    color: #AFA38C;
+    color: #8a9a7c;
     line-height: 1.4;
   }
-
   /* Type scale */
   .type-row {
     display: flex;
     align-items: baseline;
-    gap: 24px;
+    gap: 32px;
     padding: 20px 0;
-    border-bottom: 1px solid #E8D9BC;
+    border-bottom: 1px solid #dde2d0;
   }
-  .type-row:first-child { padding-top: 0; }
   .type-meta {
     min-width: 120px;
     flex-shrink: 0;
   }
   .type-token {
     font-size: 12px;
-    font-weight: 600;
-    color: #3DB87A;
-    font-family: 'Courier New', monospace;
+    font-weight: 500;
+    color: #8a9a7c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-  .type-specs {
+  .type-details {
     font-size: 11px;
-    color: #AFA38C;
+    color: #8a9a7c;
     margin-top: 2px;
-    line-height: 1.4;
   }
-  .type-sample {
-    flex: 1;
-    color: #1E1A12;
-  }
-  .type-usage {
-    font-size: 11px;
-    color: #AFA38C;
-    min-width: 180px;
-    flex-shrink: 0;
-    line-height: 1.4;
-  }
-
-  /* Spacing scale */
-  .spacing-rows { display: flex; flex-direction: column; gap: 12px; }
+  /* Spacing */
   .spacing-row {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #dde2d0;
   }
-  .spacing-label {
-    min-width: 96px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #3DB87A;
-    font-family: 'Courier New', monospace;
-  }
-  .spacing-value {
-    min-width: 40px;
-    font-size: 12px;
-    color: #AFA38C;
-    font-family: 'Courier New', monospace;
-  }
-  .spacing-block-wrap {
+  .spacing-bar-wrap {
     flex: 1;
   }
-  .spacing-block {
-    height: 20px;
-    background: #72D4A8;
-    border-radius: 3px;
-    opacity: 0.7;
+  .spacing-bar {
+    height: 16px;
+    background: #1c3a13;
+    border-radius: 4px;
+    opacity: 0.15;
   }
-  .spacing-usage {
-    font-size: 11px;
-    color: #AFA38C;
-    min-width: 220px;
+  .spacing-label {
+    min-width: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1c3a13;
   }
-
-  /* Border radius */
+  .spacing-value {
+    min-width: 48px;
+    font-size: 12px;
+    color: #4a5e3c;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Radius */
   .radius-grid {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     flex-wrap: wrap;
+    align-items: flex-end;
   }
   .radius-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
   }
   .radius-box {
     width: 80px;
     height: 80px;
-    background: #F5EDD8;
-    border: 2px solid #3DB87A;
+    background: #eff1e4;
+    border: 2px solid #1c3a13;
   }
-  .radius-info { text-align: center; }
-  .radius-token {
-    font-size: 12px;
-    font-weight: 600;
-    color: #3DB87A;
-    font-family: 'Courier New', monospace;
+  .radius-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1c3a13;
   }
   .radius-val {
     font-size: 11px;
-    color: #AFA38C;
-    margin-top: 2px;
+    color: #8a9a7c;
   }
-
   /* Shadows */
   .shadow-grid {
     display: flex;
-    gap: 24px;
+    gap: 32px;
     flex-wrap: wrap;
+    align-items: flex-end;
   }
   .shadow-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
   }
   .shadow-box {
-    width: 120px;
+    width: 100px;
     height: 80px;
-    background: #ffffff;
+    background: white;
     border-radius: 8px;
   }
-  .shadow-info { text-align: center; }
-  .shadow-token {
-    font-size: 12px;
-    font-weight: 600;
-    color: #3DB87A;
-    font-family: 'Courier New', monospace;
+  .shadow-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1c3a13;
   }
-  .shadow-usage {
+  .shadow-val {
     font-size: 11px;
-    color: #AFA38C;
-    margin-top: 2px;
+    color: #8a9a7c;
+    text-align: center;
+    max-width: 120px;
   }
-
-  /* Brand direction */
-  .brand-card {
-    background: #F5EDD8;
-    border: 1px solid #E8D9BC;
-    border-left: 4px solid #3DB87A;
+  /* Component previews */
+  .component-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid #dde2d0;
+  }
+  .btn-primary {
+    background: #1c3a13;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: #1c3a13;
+    border: 1.5px solid #1c3a13;
+    border-radius: 16px;
+    padding: 8px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: #4a5e3c;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     border-radius: 8px;
-    padding: 20px 24px;
-    font-size: 15px;
-    color: #1E1A12;
-    line-height: 1.7;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 2px 8px;
+  }
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .badge-clean { background: rgba(22,128,58,0.1); color: #16803a; }
+  .badge-clean .badge-dot { background: #16803a; }
+  .badge-caution { background: rgba(217,119,6,0.1); color: #d97706; }
+  .badge-caution .badge-dot { background: #d97706; }
+  .badge-avoid { background: rgba(235,87,87,0.1); color: #eb5757; }
+  .badge-avoid .badge-dot { background: #eb5757; }
+  .tag {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5e3c;
+    background: #eff1e4;
+    border-radius: 8px;
+    padding: 2px 8px;
+  }
+  /* Product card preview */
+  .product-card {
+    background: white;
+    border: 1px solid #dde2d0;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    box-shadow: 0 1px 2px rgba(28,58,19,0.06);
+  }
+  .card-image {
+    width: 100%;
+    height: 200px;
+    background: #eff1e4;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-image-placeholder {
+    opacity: 0.3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #1c3a13;
+  }
+  .card-image-placeholder span {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .card-overlay-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: white;
+    color: #16803a;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-score-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #16803a;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(28,58,19,0.08);
+  }
+  .card-score-num {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .card-score-label {
+    font-size: 10px;
+    opacity: 0.8;
+    line-height: 1;
+  }
+  .card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card-title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #1c3a13;
+    line-height: 1.35;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #4a5e3c;
+    line-height: 1.5;
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- Header -->
-  <div class="ds-header">
-    <h1>Clean Shopper</h1>
-    <p>Design System — Visual Reference</p>
-    <div class="ds-meta">
-      <span><strong>Version</strong> 1.0</span>
-      <span><strong>Date</strong> 2026-04-04</span>
-      <span><strong>Typeface</strong> Poppins</span>
-      <span><strong>Source</strong> /design-system-generator skill</span>
+<h1 class="page-title">Clean Shopper</h1>
+<p class="page-meta">Design System v2.0 · Last updated 2026-04-14 · Inspired by seed.com visual language</p>
+
+<!-- ─── COLORS ─── -->
+<div class="section">
+  <h2 class="section-title">Color System</h2>
+
+  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Primary</p>
+  <div class="swatch-grid" style="margin-bottom:32px;">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1c3a13;"></div>
+      <div class="swatch-name">primary</div>
+      <div class="swatch-hex">#1c3a13</div>
+      <div class="swatch-usage">Primary buttons, active nav, key CTAs</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2e5c20;"></div>
+      <div class="swatch-name">primary-light</div>
+      <div class="swatch-hex">#2e5c20</div>
+      <div class="swatch-usage">Hover states on primary elements</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0f2209;"></div>
+      <div class="swatch-name">primary-dark</div>
+      <div class="swatch-hex">#0f2209</div>
+      <div class="swatch-usage">Pressed/active states</div>
     </div>
   </div>
 
-  <!-- Brand Direction -->
-  <div class="section">
-    <div class="section-title">Brand Direction</div>
-    <div class="brand-card">
-      Trustworthy, approachable, and grounded — a wellness tool that earns credibility through clarity rather than clinical severity. Draws from Thrive Market and Grove Collaborative: balanced layouts, natural color anchored in muted green, warm neutral surfaces that signal transparency without sterility. It should feel like a knowledgeable friend, not a laboratory report.
+  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Secondary &amp; Accent</p>
+  <div class="swatch-grid" style="margin-bottom:32px;">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#eff1e4;border:1px solid #dde2d0;"></div>
+      <div class="swatch-name">secondary</div>
+      <div class="swatch-hex">#eff1e4</div>
+      <div class="swatch-usage">Page section fills, card surfaces</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#dde2d0;"></div>
+      <div class="swatch-name">secondary-dark</div>
+      <div class="swatch-hex">#dde2d0</div>
+      <div class="swatch-usage">Card borders, input backgrounds, dividers</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#9f995b;"></div>
+      <div class="swatch-name">accent</div>
+      <div class="swatch-hex">#9f995b</div>
+      <div class="swatch-usage">Secondary interactive, icon highlights, chips</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#c4be84;"></div>
+      <div class="swatch-name">accent-light</div>
+      <div class="swatch-hex">#c4be84</div>
+      <div class="swatch-usage">Accent hover states, tinted icon backgrounds</div>
     </div>
   </div>
 
-  <!-- Color System -->
-  <div class="section">
-    <div class="section-title">Color System</div>
-
-    <div class="swatch-group">
-      <div class="swatch-group-title">Primary</div>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#3DB87A;"></div>
-          <div class="swatch-name">primary</div>
-          <div class="swatch-hex">#3DB87A</div>
-          <div class="swatch-usage">Primary buttons, active nav, key CTAs, clean ratings</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#72D4A8;"></div>
-          <div class="swatch-name">primary-light</div>
-          <div class="swatch-hex">#72D4A8</div>
-          <div class="swatch-usage">Hover states, tinted content backgrounds</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#1F8A57;"></div>
-          <div class="swatch-name">primary-dark</div>
-          <div class="swatch-hex">#1F8A57</div>
-          <div class="swatch-usage">Pressed states, high-contrast text links</div>
-        </div>
-      </div>
+  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Semantic</p>
+  <div class="swatch-grid" style="margin-bottom:32px;">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#16803a;"></div>
+      <div class="swatch-name">success</div>
+      <div class="swatch-hex">#16803a</div>
+      <div class="swatch-usage">Clean ratings, confirmed saves, positive states</div>
     </div>
-
-    <div class="swatch-group">
-      <div class="swatch-group-title">Secondary / Surface</div>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#F7EDD8; border:1px solid #E8D9BC;"></div>
-          <div class="swatch-name">secondary</div>
-          <div class="swatch-hex">#F7EDD8</div>
-          <div class="swatch-usage">Page backgrounds, card surfaces, warm fills</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#EBD9B8;"></div>
-          <div class="swatch-name">secondary-dark</div>
-          <div class="swatch-hex">#EBD9B8</div>
-          <div class="swatch-usage">Card borders, input backgrounds, dividers</div>
-        </div>
-      </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#d97706;"></div>
+      <div class="swatch-name">warning</div>
+      <div class="swatch-hex">#d97706</div>
+      <div class="swatch-usage">Caution ratings, moderate ingredient concerns</div>
     </div>
-
-    <div class="swatch-group">
-      <div class="swatch-group-title">Accent</div>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#2196C4;"></div>
-          <div class="swatch-name">accent</div>
-          <div class="swatch-hex">#2196C4</div>
-          <div class="swatch-usage">Text links, icons, progress, tabs, chips</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#70C8E8;"></div>
-          <div class="swatch-name">accent-light</div>
-          <div class="swatch-hex">#70C8E8</div>
-          <div class="swatch-usage">Accent hover states, tinted icon backgrounds</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="swatch-group">
-      <div class="swatch-group-title">Semantic</div>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#16A34A;"></div>
-          <div class="swatch-name">success</div>
-          <div class="swatch-hex">#16A34A</div>
-          <div class="swatch-usage">Clean ratings, confirms, positive states only</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#D97706;"></div>
-          <div class="swatch-name">warning</div>
-          <div class="swatch-hex">#D97706</div>
-          <div class="swatch-usage">Moderate concerns, partial ratings, caution states</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#DC2626;"></div>
-          <div class="swatch-name">error</div>
-          <div class="swatch-hex">#DC2626</div>
-          <div class="swatch-usage">Avoid ratings, errors, destructive actions only</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="swatch-group">
-      <div class="swatch-group-title">Neutrals</div>
-      <div class="swatches">
-        <div class="swatch">
-          <div class="swatch-color" style="background:#FDFAF4; border:1px solid #E8D9BC;"></div>
-          <div class="swatch-name">neutral-50</div>
-          <div class="swatch-hex">#FDFAF4</div>
-          <div class="swatch-usage">Page background</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#F5EDD8;"></div>
-          <div class="swatch-name">neutral-100</div>
-          <div class="swatch-hex">#F5EDD8</div>
-          <div class="swatch-usage">Card backgrounds, surface fills</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#E8D9BC;"></div>
-          <div class="swatch-name">neutral-200</div>
-          <div class="swatch-hex">#E8D9BC</div>
-          <div class="swatch-usage">Borders, dividers</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#AFA38C;"></div>
-          <div class="swatch-name">neutral-400</div>
-          <div class="swatch-hex">#AFA38C</div>
-          <div class="swatch-usage">Placeholder text, disabled states</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#6B5E4A;"></div>
-          <div class="swatch-name">neutral-600</div>
-          <div class="swatch-hex">#6B5E4A</div>
-          <div class="swatch-usage">Secondary text, labels, metadata</div>
-        </div>
-        <div class="swatch">
-          <div class="swatch-color" style="background:#1E1A12;"></div>
-          <div class="swatch-name">neutral-900</div>
-          <div class="swatch-hex">#1E1A12</div>
-          <div class="swatch-usage">Primary text, headings</div>
-        </div>
-      </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#eb5757;"></div>
+      <div class="swatch-name">error</div>
+      <div class="swatch-hex">#eb5757</div>
+      <div class="swatch-usage">Avoid ratings, errors, destructive actions</div>
     </div>
   </div>
 
-  <!-- Typography -->
-  <div class="section">
-    <div class="section-title">Typography — Poppins</div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">display</div>
-        <div class="type-specs">48px · 700 · 1.2lh</div>
-      </div>
-      <div class="type-sample" style="font-size:48px;font-weight:700;line-height:1.2;letter-spacing:-0.5px;">Clean ingredients.</div>
-      <div class="type-usage">Hero headlines, landing anchors. One per view.</div>
+  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Neutrals</p>
+  <div class="swatch-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#fcfcf7;border:1px solid #dde2d0;"></div>
+      <div class="swatch-name">neutral-50</div>
+      <div class="swatch-hex">#fcfcf7</div>
+      <div class="swatch-usage">Page background</div>
     </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">h1</div>
-        <div class="type-specs">36px · 600 · 1.25lh</div>
-      </div>
-      <div class="type-sample" style="font-size:36px;font-weight:600;line-height:1.25;">Product Research</div>
-      <div class="type-usage">Page titles. One per page.</div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#eff1e4;border:1px solid #dde2d0;"></div>
+      <div class="swatch-name">neutral-100</div>
+      <div class="swatch-hex">#eff1e4</div>
+      <div class="swatch-usage">Card backgrounds, elevated surfaces</div>
     </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">h2</div>
-        <div class="type-specs">28px · 600 · 1.3lh</div>
-      </div>
-      <div class="type-sample" style="font-size:28px;font-weight:600;line-height:1.3;">Ingredient Analysis</div>
-      <div class="type-usage">Section headers.</div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#dde2d0;"></div>
+      <div class="swatch-name">neutral-200</div>
+      <div class="swatch-hex">#dde2d0</div>
+      <div class="swatch-usage">Borders, dividers</div>
     </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">h3</div>
-        <div class="type-specs">22px · 600 · 1.35lh</div>
-      </div>
-      <div class="type-sample" style="font-size:22px;font-weight:600;line-height:1.35;">EWG Safety Rating</div>
-      <div class="type-usage">Card titles, modal headings.</div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8a9a7c;"></div>
+      <div class="swatch-name">neutral-400</div>
+      <div class="swatch-hex">#8a9a7c</div>
+      <div class="swatch-usage">Placeholder text, disabled states</div>
     </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">h4</div>
-        <div class="type-specs">18px · 500 · 1.4lh</div>
-      </div>
-      <div class="type-sample" style="font-size:18px;font-weight:500;line-height:1.4;">Personal Care</div>
-      <div class="type-usage">Component labels, list group titles.</div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#4a5e3c;"></div>
+      <div class="swatch-name">neutral-600</div>
+      <div class="swatch-hex">#4a5e3c</div>
+      <div class="swatch-usage">Secondary body text, metadata</div>
     </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">body</div>
-        <div class="type-specs">16px · 400 · 1.6lh</div>
-      </div>
-      <div class="type-sample" style="font-size:16px;font-weight:400;line-height:1.6;">This product contains sodium lauryl sulfate, which scores a 3 on the EWG hazard scale. Based on your saved preferences, this ingredient is flagged for review.</div>
-      <div class="type-usage">Body copy, descriptions. Default size.</div>
-    </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">small</div>
-        <div class="type-specs">14px · 400 · 1.5lh</div>
-      </div>
-      <div class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;">Added to your library · 12 ingredients · EWG Verified</div>
-      <div class="type-usage">Metadata, tags, helper text.</div>
-    </div>
-
-    <div class="type-row">
-      <div class="type-meta">
-        <div class="type-token">micro</div>
-        <div class="type-specs">12px · 400 · 1.4lh</div>
-      </div>
-      <div class="type-sample" style="font-size:12px;font-weight:400;line-height:1.4;color:#AFA38C;">Last updated April 4, 2026 · Data sourced from EWG Skin Deep</div>
-      <div class="type-usage">Timestamps, attribution, legal.</div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1c3a13;"></div>
+      <div class="swatch-name">neutral-900</div>
+      <div class="swatch-hex">#1c3a13</div>
+      <div class="swatch-usage">Primary text, headings</div>
     </div>
   </div>
-
-  <!-- Spacing Scale -->
-  <div class="section">
-    <div class="section-title">Spacing Scale — Base 4px</div>
-    <div class="spacing-rows">
-      <div class="spacing-row">
-        <div class="spacing-label">space-xs</div>
-        <div class="spacing-value">4px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:4px;"></div></div>
-        <div class="spacing-usage">Icon padding, tight inline gaps</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-sm</div>
-        <div class="spacing-value">8px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:8px;"></div></div>
-        <div class="spacing-usage">Small component padding (badges, chips)</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-md</div>
-        <div class="spacing-value">16px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:16px;"></div></div>
-        <div class="spacing-usage">Standard component padding (buttons, inputs)</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-lg</div>
-        <div class="spacing-value">24px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:24px;"></div></div>
-        <div class="spacing-usage">Card padding, form group gaps</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-xl</div>
-        <div class="spacing-value">32px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:32px;"></div></div>
-        <div class="spacing-usage">Between distinct components in a section</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-2xl</div>
-        <div class="spacing-value">48px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:48px;"></div></div>
-        <div class="spacing-usage">Between major page sections</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-3xl</div>
-        <div class="spacing-value">64px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:64px;"></div></div>
-        <div class="spacing-usage">Page-level top/bottom margins</div>
-      </div>
-      <div class="spacing-row">
-        <div class="spacing-label">space-4xl</div>
-        <div class="spacing-value">96px</div>
-        <div class="spacing-block-wrap"><div class="spacing-block" style="width:96px;"></div></div>
-        <div class="spacing-usage">Hero sections, full-bleed spacing</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Border Radius -->
-  <div class="section">
-    <div class="section-title">Border Radius</div>
-    <div class="radius-grid">
-      <div class="radius-item">
-        <div class="radius-box" style="border-radius:4px;"></div>
-        <div class="radius-info">
-          <div class="radius-token">radius-sm</div>
-          <div class="radius-val">4px — badges, tags</div>
-        </div>
-      </div>
-      <div class="radius-item">
-        <div class="radius-box" style="border-radius:8px;"></div>
-        <div class="radius-info">
-          <div class="radius-token">radius-md</div>
-          <div class="radius-val">8px — buttons, inputs</div>
-        </div>
-      </div>
-      <div class="radius-item">
-        <div class="radius-box" style="border-radius:16px;"></div>
-        <div class="radius-info">
-          <div class="radius-token">radius-lg</div>
-          <div class="radius-val">16px — cards, modals</div>
-        </div>
-      </div>
-      <div class="radius-item">
-        <div class="radius-box" style="border-radius:9999px;"></div>
-        <div class="radius-info">
-          <div class="radius-token">radius-full</div>
-          <div class="radius-val">9999px — pills, avatars</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Shadows -->
-  <div class="section">
-    <div class="section-title">Shadows</div>
-    <div class="shadow-grid">
-      <div class="shadow-item">
-        <div class="shadow-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);"></div>
-        <div class="shadow-info">
-          <div class="shadow-token">shadow-sm</div>
-          <div class="shadow-usage">Resting card state</div>
-        </div>
-      </div>
-      <div class="shadow-item">
-        <div class="shadow-box" style="box-shadow:0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);"></div>
-        <div class="shadow-info">
-          <div class="shadow-token">shadow-md</div>
-          <div class="shadow-usage">Hover states, dropdowns</div>
-        </div>
-      </div>
-      <div class="shadow-item">
-        <div class="shadow-box" style="box-shadow:0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.05);"></div>
-        <div class="shadow-info">
-          <div class="shadow-token">shadow-lg</div>
-          <div class="shadow-usage">Modals, overlays</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<!-- ─── TYPOGRAPHY ─── -->
+<div class="section">
+  <h2 class="section-title">Typography — DM Sans</h2>
+
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">display</div>
+      <div class="type-details">48px · weight 300 · lh 1.2</div>
+    </div>
+    <div style="font-size:48px;font-weight:300;color:#1c3a13;line-height:1.2;">Clean Shopper</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">h1</div>
+      <div class="type-details">40px · weight 300 · lh 1.25</div>
+    </div>
+    <div style="font-size:40px;font-weight:300;color:#1c3a13;line-height:1.25;">Browse Products</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">h2</div>
+      <div class="type-details">32px · weight 300 · lh 1.3</div>
+    </div>
+    <div style="font-size:32px;font-weight:300;color:#1c3a13;line-height:1.3;">Personal Care</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">h3</div>
+      <div class="type-details">24px · weight 400 · lh 1.35</div>
+    </div>
+    <div style="font-size:24px;font-weight:400;color:#1c3a13;line-height:1.35;">Cetaphil Gentle Skin Cleanser</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">h4</div>
+      <div class="type-details">20px · weight 400 · lh 1.4</div>
+    </div>
+    <div style="font-size:20px;font-weight:400;color:#1c3a13;line-height:1.4;">Ingredient Safety</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">body</div>
+      <div class="type-details">16px · weight 400 · lh 1.6</div>
+    </div>
+    <div style="font-size:16px;font-weight:400;color:#4a5e3c;line-height:1.6;">A gentle, soap-free cleanser that removes dirt and makeup without disrupting the skin barrier.</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">small</div>
+      <div class="type-details">14px · weight 400 · lh 1.5</div>
+    </div>
+    <div style="font-size:14px;font-weight:400;color:#4a5e3c;line-height:1.5;">Supporting text, metadata, tag labels, form helper text</div>
+  </div>
+  <div class="type-row">
+    <div class="type-meta">
+      <div class="type-token">micro</div>
+      <div class="type-details">12px · weight 400 · lh 1.4</div>
+    </div>
+    <div style="font-size:12px;font-weight:400;color:#8a9a7c;line-height:1.4;">Timestamps · Legal text · Attribution · Minimal UI labels</div>
+  </div>
+</div>
+
+<!-- ─── SPACING ─── -->
+<div class="section">
+  <h2 class="section-title">Spacing Scale — base 4px</h2>
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <div class="spacing-row"><div class="spacing-label">space-3xs</div><div class="spacing-value">2px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-2xs</div><div class="spacing-value">6px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-xs</div><div class="spacing-value">4px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-sm</div><div class="spacing-value">8px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-md</div><div class="spacing-value">16px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-lg</div><div class="spacing-value">24px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-xl</div><div class="spacing-value">32px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-2xl</div><div class="spacing-value">48px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-3xl</div><div class="spacing-value">64px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px;"></div></div></div>
+    <div class="spacing-row"><div class="spacing-label">space-4xl</div><div class="spacing-value">96px</div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:96px;"></div></div></div>
+  </div>
+</div>
+
+<!-- ─── BORDER RADIUS ─── -->
+<div class="section">
+  <h2 class="section-title">Border Radius</h2>
+  <div class="radius-grid">
+    <div class="radius-item">
+      <div class="radius-box" style="border-radius:8px;"></div>
+      <div class="radius-name">radius-sm</div>
+      <div class="radius-val">8px — badges, tags</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="border-radius:16px;"></div>
+      <div class="radius-name">radius-md</div>
+      <div class="radius-val">16px — buttons, inputs</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="border-radius:24px;"></div>
+      <div class="radius-name">radius-lg</div>
+      <div class="radius-val">24px — cards, modals</div>
+    </div>
+    <div class="radius-item">
+      <div class="radius-box" style="border-radius:9999px;width:80px;height:40px;"></div>
+      <div class="radius-name">radius-full</div>
+      <div class="radius-val">9999px — pills, avatars</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SHADOWS ─── -->
+<div class="section">
+  <h2 class="section-title">Shadows — brand-tinted, flat aesthetic</h2>
+  <div class="shadow-grid">
+    <div class="shadow-item">
+      <div class="shadow-box" style="box-shadow:0 1px 2px rgba(28,58,19,0.06);"></div>
+      <div class="shadow-name">shadow-sm</div>
+      <div class="shadow-val">Resting card state</div>
+    </div>
+    <div class="shadow-item">
+      <div class="shadow-box" style="box-shadow:0 2px 8px rgba(28,58,19,0.08);"></div>
+      <div class="shadow-name">shadow-md</div>
+      <div class="shadow-val">Hover state, dropdowns</div>
+    </div>
+    <div class="shadow-item">
+      <div class="shadow-box" style="box-shadow:0 4px 16px rgba(28,58,19,0.10);"></div>
+      <div class="shadow-name">shadow-lg</div>
+      <div class="shadow-val">Modals, overlays</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── COMPONENTS ─── -->
+<div class="section">
+  <h2 class="section-title">Component Previews</h2>
+
+  <div class="component-row">
+    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Buttons</span>
+    <button class="btn-primary">Save to list</button>
+    <button class="btn-secondary">View details</button>
+    <button class="btn-ghost">Cancel</button>
+  </div>
+
+  <div class="component-row">
+    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Safety badges</span>
+    <span class="badge badge-clean"><span class="badge-dot"></span>Clean</span>
+    <span class="badge badge-caution"><span class="badge-dot"></span>Caution</span>
+    <span class="badge badge-avoid"><span class="badge-dot"></span>Avoid</span>
+  </div>
+
+  <div class="component-row">
+    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Category tags</span>
+    <span class="tag">Personal Care</span>
+    <span class="tag">Home Cleaning</span>
+    <span class="tag">Baby Care</span>
+    <span class="tag">Kitchen</span>
+  </div>
+
+  <div class="component-row" style="align-items:flex-start;">
+    <span style="font-size:12px;color:#8a9a7c;min-width:80px;padding-top:12px;">Product card</span>
+    <div class="product-card">
+      <div class="card-image">
+        <div class="card-image-placeholder">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span>Clean Shopper</span>
+        </div>
+        <div class="card-overlay-badge">
+          <span style="width:6px;height:6px;border-radius:50%;background:#16803a;display:inline-block;"></span>
+          Clean
+        </div>
+        <div class="card-score-badge">
+          <span class="card-score-num">87</span>
+          <span class="card-score-label">score</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;gap:8px;">
+          <span class="tag">Personal Care</span>
+        </div>
+        <div class="card-title">Cetaphil Gentle Skin Cleanser</div>
+        <div class="card-desc">A soap-free formula that gently cleanses without stripping moisture from the skin.</div>
+        <button class="btn-secondary" style="font-size:14px;padding:6px 16px;margin-top:8px;">Save to list</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p style="font-size:12px;color:#8a9a7c;text-align:center;padding-top:32px;border-top:1px solid #dde2d0;">
+  Clean Shopper Design System v2.0 · Generated 2026-04-14 · Inspired by seed.com visual language
+</p>
+
 </body>
 </html>
