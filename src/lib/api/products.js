@@ -4,7 +4,10 @@ export async function fetchProductsByCategory(category) {
   let query = supabase.from('products').select('*').order('score', { ascending: false })
   if (category !== 'All') query = query.eq('category', category)
   const { data, error } = await query
-  if (error) throw error
+  if (error) {
+    console.error('fetchProductsByCategory error:', error)
+    throw error
+  }
   return data ?? []
 }
 

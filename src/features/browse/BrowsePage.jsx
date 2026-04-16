@@ -10,13 +10,22 @@ export default function BrowsePage() {
   const [savedIds, setSavedIds] = useState([])
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     async function loadProducts() {
       setLoading(true)
-      const data = await fetchProductsByCategory(activeCategory)
-      setProducts(data)
-      setLoading(false)
+      setError(null)
+      try {
+        const data = await fetchProductsByCategory(activeCategory)
+        setProducts(data)
+      } catch (err) {
+        console.error('Failed to load products:', err)
+        setError('Could not load products. Please try again.')
+        setProducts([])
+      } finally {
+        setLoading(false)
+      }
     }
     loadProducts()
   }, [activeCategory])
@@ -49,6 +58,11 @@ export default function BrowsePage() {
           />
         ))}
       </div>
+
+      {/* Error state */}
+      {error && (
+        <p className="text-small text-error">{error}</p>
+      )}
 
       {/* Product grid */}
       {loading ? (
