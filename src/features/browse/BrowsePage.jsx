@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryTag from '../../components/CategoryTag'
 import { fetchProductsByCategory } from '../../lib/api/products'
+import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
 const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
 
@@ -12,6 +13,7 @@ export default function BrowsePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // Load products when category changes
   useEffect(() => {
     async function loadProducts() {
       setLoading(true)
@@ -30,10 +32,38 @@ export default function BrowsePage() {
     loadProducts()
   }, [activeCategory])
 
-  function toggleSave(id) {
+  // Load saved product IDs once on mount
+  useEffect(() => {
+    async function loadSaved() {
+      try {
+        const ids = await fetchSavedProductIds()
+        setSavedIds(ids)
+      } catch (err) {
+        console.error('Failed to load saved products:', err)
+      }
+    }
+    loadSaved()
+  }, [])
+
+  async function toggleSave(productId) {
+    const isSaved = savedIds.includes(productId)
+    // Optimistic update
     setSavedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      isSaved ? prev.filter((id) => id !== productId) : [...prev, productId]
     )
+    try {
+      if (isSaved) {
+        await unsaveProduct(productId)
+      } else {
+        await saveProduct(productId)
+      }
+    } catch (err) {
+      // Revert on failure
+      setSavedIds((prev) =>
+        isSaved ? [...prev, productId] : prev.filter((id) => id !== productId)
+      )
+      console.error('Failed to toggle save:', err)
+    }
   }
 
   return (

@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SearchBar from '../../components/SearchBar'
 import ProductCard from '../../components/ProductCard'
 import EmptyState from '../../components/EmptyState'
 import { searchProducts } from '../../lib/api/products'
+import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
 const SearchIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -18,6 +19,19 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false)
   const [searched, setSearched] = useState(false)
   const [error, setError] = useState(null)
+
+  // Load saved product IDs once on mount
+  useEffect(() => {
+    async function loadSaved() {
+      try {
+        const ids = await fetchSavedProductIds()
+        setSavedIds(ids)
+      } catch (err) {
+        console.error('Failed to load saved products:', err)
+      }
+    }
+    loadSaved()
+  }, [])
 
   async function handleSearch() {
     const trimmed = query.trim()
@@ -39,10 +53,25 @@ export default function SearchPage() {
     }
   }
 
-  function toggleSave(id) {
+  async function toggleSave(productId) {
+    const isSaved = savedIds.includes(productId)
+    // Optimistic update
     setSavedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      isSaved ? prev.filter((id) => id !== productId) : [...prev, productId]
     )
+    try {
+      if (isSaved) {
+        await unsaveProduct(productId)
+      } else {
+        await saveProduct(productId)
+      }
+    } catch (err) {
+      // Revert on failure
+      setSavedIds((prev) =>
+        isSaved ? [...prev, productId] : prev.filter((id) => id !== productId)
+      )
+      console.error('Failed to toggle save:', err)
+    }
   }
 
   return (
@@ -109,15 +138,15 @@ export default function SearchPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
             {results.map((product, i) => (
               <ProductCard
-                key={`${product.name}-${i}`}
+                key={product.id ?? `${product.name}-${i}`}
                 name={product.name}
                 safetyScore={product.safety_score}
                 score={product.score}
                 category={product.category}
                 description={product.description}
                 imageUrl={product.image_url}
-                onSave={() => toggleSave(`${product.name}-${i}`)}
-                isSaved={savedIds.includes(`${product.name}-${i}`)}
+                onSave={() => toggleSave(product.id)}
+                isSaved={savedIds.includes(product.id)}
               />
             ))}
           </div>
