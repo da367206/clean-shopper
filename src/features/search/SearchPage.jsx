@@ -17,6 +17,7 @@ export default function SearchPage() {
   const [savedIds, setSavedIds] = useState([])
   const [loading, setLoading] = useState(false)
   const [searched, setSearched] = useState(false)
+  const [error, setError] = useState(null)
 
   async function handleSearch() {
     const trimmed = query.trim()
@@ -24,10 +25,18 @@ export default function SearchPage() {
 
     setLoading(true)
     setSearched(true)
+    setError(null)
+    setResults([])
 
-    const data = await searchProducts(trimmed)
-    setResults(data)
-    setLoading(false)
+    try {
+      const data = await searchProducts(trimmed)
+      setResults(data)
+    } catch (err) {
+      console.error('Search error:', err)
+      setError(err.message ?? 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   function toggleSave(id) {
@@ -52,35 +61,63 @@ export default function SearchPage() {
         value={query}
         onChange={setQuery}
         onSubmit={handleSearch}
-        placeholder='Try "dish soap" or "fragrance-free"...'
+        placeholder='Try "shampoo" or "dish soap" or "Dove"...'
         isLoading={loading}
       />
 
-      {/* Results */}
-      {searched && !loading && results.length === 0 && (
+      {/* Loading skeletons */}
+      {loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="bg-white border border-neutral-200 rounded-radius-lg overflow-hidden flex flex-col">
+              <div className="h-img-card bg-neutral-100 animate-pulse w-full flex-shrink-0" />
+              <div className="flex flex-col gap-space-sm p-space-lg">
+                <div className="h-space-lg bg-neutral-100 animate-pulse rounded-radius-sm w-3/4" />
+                <div className="h-space-md bg-neutral-100 animate-pulse rounded-radius-sm w-1/4" />
+                <div className="h-space-xl bg-neutral-100 animate-pulse rounded-radius-sm w-full" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Error state */}
+      {!loading && error && (
         <EmptyState
           icon={<SearchIcon />}
-          title="No results found"
-          message={`No products matched "${query}". Try a different keyword or brand name.`}
+          title="Search failed"
+          message={error}
+          action={{ label: 'Try again', onClick: handleSearch }}
         />
       )}
 
-      {results.length > 0 && (
-        <div className="flex flex-col gap-space-sm">
+      {/* Empty state */}
+      {!loading && !error && searched && results.length === 0 && (
+        <EmptyState
+          icon={<SearchIcon />}
+          title="No results found"
+          message={`No products matched "${query}". Try a different keyword or describe what you need.`}
+        />
+      )}
+
+      {/* Results */}
+      {!loading && results.length > 0 && (
+        <div className="flex flex-col gap-space-md">
           <p className="text-small text-neutral-400">
             {results.length} {results.length === 1 ? 'result' : 'results'} for "{query}"
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
-            {results.map((product) => (
+            {results.map((product, i) => (
               <ProductCard
-                key={product.id}
+                key={`${product.name}-${i}`}
                 name={product.name}
                 safetyScore={product.safety_score}
                 score={product.score}
                 category={product.category}
                 description={product.description}
-                onSave={() => toggleSave(product.id)}
-                isSaved={savedIds.includes(product.id)}
+                imageUrl={product.image_url}
+                onSave={() => toggleSave(`${product.name}-${i}`)}
+                isSaved={savedIds.includes(`${product.name}-${i}`)}
               />
             ))}
           </div>
