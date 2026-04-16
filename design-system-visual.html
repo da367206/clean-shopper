@@ -3,41 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clean Shopper — Design System v2.0</title>
+<title>Clean Shopper — Design System v3.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    background: #fcfcf7;
-    color: #1c3a13;
+    font-family: 'Jost', system-ui, sans-serif;
+    background: #FFF5EF;
+    color: #212121;
     padding: 64px 48px;
     max-width: 960px;
     margin: 0 auto;
   }
   h1.page-title {
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 48px;
-    font-weight: 300;
-    line-height: 1.2;
-    color: #1c3a13;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #212121;
     margin-bottom: 8px;
   }
   .page-meta {
     font-size: 14px;
-    color: #4a5e3c;
+    color: #8B5A4A;
     margin-bottom: 64px;
   }
   h2.section-title {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #8a9a7c;
+    color: #B89080;
     margin-bottom: 24px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #dde2d0;
+    border-bottom: 1px solid #FFC0A1;
   }
   .section {
     margin-bottom: 64px;
@@ -62,16 +63,16 @@
   .swatch-name {
     font-size: 14px;
     font-weight: 500;
-    color: #1c3a13;
+    color: #212121;
   }
   .swatch-hex {
     font-size: 12px;
-    color: #4a5e3c;
+    color: #8B5A4A;
     font-variant-numeric: tabular-nums;
   }
   .swatch-usage {
     font-size: 11px;
-    color: #8a9a7c;
+    color: #B89080;
     line-height: 1.4;
   }
   /* Type scale */
@@ -80,22 +81,22 @@
     align-items: baseline;
     gap: 32px;
     padding: 20px 0;
-    border-bottom: 1px solid #dde2d0;
+    border-bottom: 1px solid #FFC0A1;
   }
   .type-meta {
     min-width: 120px;
     flex-shrink: 0;
   }
   .type-token {
-    font-size: 12px;
-    font-weight: 500;
-    color: #8a9a7c;
+    font-size: 11px;
+    font-weight: 600;
+    color: #B89080;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
   }
   .type-details {
     font-size: 11px;
-    color: #8a9a7c;
+    color: #B89080;
     margin-top: 2px;
   }
   /* Spacing */
@@ -104,27 +105,27 @@
     align-items: center;
     gap: 16px;
     padding: 8px 0;
-    border-bottom: 1px solid #dde2d0;
+    border-bottom: 1px solid #FFC0A1;
   }
   .spacing-bar-wrap {
     flex: 1;
   }
   .spacing-bar {
     height: 16px;
-    background: #1c3a13;
-    border-radius: 4px;
-    opacity: 0.15;
+    background: #BC5724;
+    border-radius: 3px;
+    opacity: 0.2;
   }
   .spacing-label {
     min-width: 100px;
     font-size: 13px;
     font-weight: 500;
-    color: #1c3a13;
+    color: #212121;
   }
   .spacing-value {
     min-width: 48px;
     font-size: 12px;
-    color: #4a5e3c;
+    color: #8B5A4A;
     font-variant-numeric: tabular-nums;
   }
   /* Radius */
@@ -143,22 +144,22 @@
   .radius-box {
     width: 80px;
     height: 80px;
-    background: #eff1e4;
-    border: 2px solid #1c3a13;
+    background: #FFE7DC;
+    border: 2px solid #BC5724;
   }
   .radius-name {
     font-size: 13px;
     font-weight: 500;
-    color: #1c3a13;
+    color: #212121;
   }
   .radius-val {
     font-size: 11px;
-    color: #8a9a7c;
+    color: #B89080;
   }
   /* Shadows */
   .shadow-grid {
     display: flex;
-    gap: 32px;
+    gap: 48px;
     flex-wrap: wrap;
     align-items: flex-end;
   }
@@ -166,7 +167,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
   }
   .shadow-box {
     width: 100px;
@@ -177,13 +178,13 @@
   .shadow-name {
     font-size: 13px;
     font-weight: 500;
-    color: #1c3a13;
+    color: #212121;
   }
   .shadow-val {
     font-size: 11px;
-    color: #8a9a7c;
+    color: #B89080;
     text-align: center;
-    max-width: 120px;
+    max-width: 140px;
   }
   /* Component previews */
   .component-row {
@@ -192,48 +193,57 @@
     gap: 16px;
     align-items: center;
     padding: 24px 0;
-    border-bottom: 1px solid #dde2d0;
+    border-bottom: 1px solid #FFC0A1;
   }
   .btn-primary {
-    background: #1c3a13;
+    background: #BC5724;
     color: white;
     border: none;
-    border-radius: 16px;
-    padding: 8px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    border-radius: 9999px;
+    padding: 11px 24px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
   }
   .btn-secondary {
     background: transparent;
-    color: #1c3a13;
-    border: 1.5px solid #1c3a13;
-    border-radius: 16px;
-    padding: 8px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    color: #BC5724;
+    border: 1.5px solid #BC5724;
+    border-radius: 9999px;
+    padding: 11px 24px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
   }
   .btn-ghost {
     background: transparent;
-    color: #4a5e3c;
+    color: #8B5A4A;
     border: none;
-    border-radius: 16px;
-    padding: 8px 24px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
+    border-radius: 9999px;
+    padding: 11px 24px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     cursor: pointer;
   }
   .badge {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px;
   }
   .badge-dot {
     width: 6px;
@@ -248,45 +258,47 @@
   .badge-avoid .badge-dot { background: #eb5757; }
   .tag {
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
-    color: #4a5e3c;
-    background: #eff1e4;
-    border-radius: 8px;
-    padding: 2px 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8B5A4A;
+    background: #FFE7DC;
+    border-radius: 3px;
+    padding: 3px 10px;
   }
   /* Product card preview */
   .product-card {
     background: white;
-    border: 1px solid #dde2d0;
-    border-radius: 24px;
+    border: 1px solid #FFC0A1;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     width: 260px;
-    box-shadow: 0 1px 2px rgba(28,58,19,0.06);
+    box-shadow: 6px 6px 9px rgba(0,0,0,0.08);
   }
   .card-image {
     width: 100%;
     height: 200px;
-    background: #eff1e4;
+    background: #FFE7DC;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .card-image-placeholder {
-    opacity: 0.3;
+    opacity: 0.35;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    color: #1c3a13;
+    color: #BC5724;
   }
   .card-image-placeholder span {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
   .card-overlay-badge {
@@ -295,10 +307,12 @@
     left: 8px;
     background: white;
     color: #16803a;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -307,42 +321,45 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    background: #16803a;
+    background: #BC5724;
     color: white;
     width: 44px;
     height: 44px;
-    border-radius: 16px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(28,58,19,0.08);
+    box-shadow: 3px 3px 0px rgba(188,87,36,0.3);
   }
   .card-score-num {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1;
   }
   .card-score-label {
     font-size: 10px;
     opacity: 0.8;
     line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
   .card-body {
-    padding: 24px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   .card-title {
-    font-size: 24px;
-    font-weight: 400;
-    color: #1c3a13;
-    line-height: 1.35;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #212121;
+    line-height: 1.2;
   }
   .card-desc {
     font-size: 14px;
-    color: #4a5e3c;
+    color: #8B5A4A;
     line-height: 1.5;
   }
 </style>
@@ -350,63 +367,63 @@
 <body>
 
 <h1 class="page-title">Clean Shopper</h1>
-<p class="page-meta">Design System v2.0 · Last updated 2026-04-14 · Inspired by seed.com visual language</p>
+<p class="page-meta">Design System v3.0 · Last updated 2026-04-16 · Inspired by Eat Yourself Skinny visual language</p>
 
 <!-- ─── COLORS ─── -->
 <div class="section">
   <h2 class="section-title">Color System</h2>
 
-  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Primary</p>
+  <p style="font-size:13px;color:#B89080;margin-bottom:20px;font-style:italic;">Primary — Terracotta</p>
   <div class="swatch-grid" style="margin-bottom:32px;">
     <div class="swatch">
-      <div class="swatch-color" style="background:#1c3a13;"></div>
+      <div class="swatch-color" style="background:#BC5724;"></div>
       <div class="swatch-name">primary</div>
-      <div class="swatch-hex">#1c3a13</div>
+      <div class="swatch-hex">#BC5724</div>
       <div class="swatch-usage">Primary buttons, active nav, key CTAs</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#2e5c20;"></div>
+      <div class="swatch-color" style="background:#D4713A;"></div>
       <div class="swatch-name">primary-light</div>
-      <div class="swatch-hex">#2e5c20</div>
+      <div class="swatch-hex">#D4713A</div>
       <div class="swatch-usage">Hover states on primary elements</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#0f2209;"></div>
+      <div class="swatch-color" style="background:#9A4519;"></div>
       <div class="swatch-name">primary-dark</div>
-      <div class="swatch-hex">#0f2209</div>
+      <div class="swatch-hex">#9A4519</div>
       <div class="swatch-usage">Pressed/active states</div>
     </div>
   </div>
 
-  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Secondary &amp; Accent</p>
+  <p style="font-size:13px;color:#B89080;margin-bottom:20px;font-style:italic;">Secondary &amp; Accent</p>
   <div class="swatch-grid" style="margin-bottom:32px;">
     <div class="swatch">
-      <div class="swatch-color" style="background:#eff1e4;border:1px solid #dde2d0;"></div>
+      <div class="swatch-color" style="background:#FFE7DC;border:1px solid #FFC0A1;"></div>
       <div class="swatch-name">secondary</div>
-      <div class="swatch-hex">#eff1e4</div>
+      <div class="swatch-hex">#FFE7DC</div>
       <div class="swatch-usage">Page section fills, card surfaces</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#dde2d0;"></div>
+      <div class="swatch-color" style="background:#FFC0A1;"></div>
       <div class="swatch-name">secondary-dark</div>
-      <div class="swatch-hex">#dde2d0</div>
-      <div class="swatch-usage">Card borders, input backgrounds, dividers</div>
+      <div class="swatch-hex">#FFC0A1</div>
+      <div class="swatch-usage">Card borders, input highlights, dividers</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#9f995b;"></div>
+      <div class="swatch-color" style="background:#D7E0BF;"></div>
       <div class="swatch-name">accent</div>
-      <div class="swatch-hex">#9f995b</div>
-      <div class="swatch-usage">Secondary interactive, icon highlights, chips</div>
+      <div class="swatch-hex">#D7E0BF</div>
+      <div class="swatch-usage">Sage green — chips, highlights, secondary interactive</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#c4be84;"></div>
-      <div class="swatch-name">accent-light</div>
-      <div class="swatch-hex">#c4be84</div>
-      <div class="swatch-usage">Accent hover states, tinted icon backgrounds</div>
+      <div class="swatch-color" style="background:#CDDCE0;"></div>
+      <div class="swatch-name">accent-cool</div>
+      <div class="swatch-hex">#CDDCE0</div>
+      <div class="swatch-usage">Cool sage — alternative chip, tinted backgrounds</div>
     </div>
   </div>
 
-  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Semantic</p>
+  <p style="font-size:13px;color:#B89080;margin-bottom:20px;font-style:italic;">Semantic</p>
   <div class="swatch-grid" style="margin-bottom:32px;">
     <div class="swatch">
       <div class="swatch-color" style="background:#16803a;"></div>
@@ -428,42 +445,42 @@
     </div>
   </div>
 
-  <p style="font-size:13px;color:#8a9a7c;margin-bottom:20px;font-style:italic;">Neutrals</p>
+  <p style="font-size:13px;color:#B89080;margin-bottom:20px;font-style:italic;">Neutrals</p>
   <div class="swatch-grid">
     <div class="swatch">
-      <div class="swatch-color" style="background:#fcfcf7;border:1px solid #dde2d0;"></div>
+      <div class="swatch-color" style="background:#FFF5EF;border:1px solid #FFC0A1;"></div>
       <div class="swatch-name">neutral-50</div>
-      <div class="swatch-hex">#fcfcf7</div>
+      <div class="swatch-hex">#FFF5EF</div>
       <div class="swatch-usage">Page background</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#eff1e4;border:1px solid #dde2d0;"></div>
+      <div class="swatch-color" style="background:#FFE7DC;border:1px solid #FFC0A1;"></div>
       <div class="swatch-name">neutral-100</div>
-      <div class="swatch-hex">#eff1e4</div>
+      <div class="swatch-hex">#FFE7DC</div>
       <div class="swatch-usage">Card backgrounds, elevated surfaces</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#dde2d0;"></div>
+      <div class="swatch-color" style="background:#FFC0A1;"></div>
       <div class="swatch-name">neutral-200</div>
-      <div class="swatch-hex">#dde2d0</div>
+      <div class="swatch-hex">#FFC0A1</div>
       <div class="swatch-usage">Borders, dividers</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#8a9a7c;"></div>
+      <div class="swatch-color" style="background:#B89080;"></div>
       <div class="swatch-name">neutral-400</div>
-      <div class="swatch-hex">#8a9a7c</div>
+      <div class="swatch-hex">#B89080</div>
       <div class="swatch-usage">Placeholder text, disabled states</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#4a5e3c;"></div>
+      <div class="swatch-color" style="background:#8B5A4A;"></div>
       <div class="swatch-name">neutral-600</div>
-      <div class="swatch-hex">#4a5e3c</div>
+      <div class="swatch-hex">#8B5A4A</div>
       <div class="swatch-usage">Secondary body text, metadata</div>
     </div>
     <div class="swatch">
-      <div class="swatch-color" style="background:#1c3a13;"></div>
+      <div class="swatch-color" style="background:#212121;"></div>
       <div class="swatch-name">neutral-900</div>
-      <div class="swatch-hex">#1c3a13</div>
+      <div class="swatch-hex">#212121</div>
       <div class="swatch-usage">Primary text, headings</div>
     </div>
   </div>
@@ -471,63 +488,63 @@
 
 <!-- ─── TYPOGRAPHY ─── -->
 <div class="section">
-  <h2 class="section-title">Typography — DM Sans</h2>
+  <h2 class="section-title">Typography — Playfair Display + Jost</h2>
 
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">display</div>
-      <div class="type-details">48px · weight 300 · lh 1.2</div>
+      <div class="type-details">48px · Playfair · bold · lh 1.1</div>
     </div>
-    <div style="font-size:48px;font-weight:300;color:#1c3a13;line-height:1.2;">Clean Shopper</div>
+    <div style="font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:#212121;line-height:1.1;">Clean Shopper</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">h1</div>
-      <div class="type-details">40px · weight 300 · lh 1.25</div>
+      <div class="type-details">40px · Playfair · bold · lh 1.15</div>
     </div>
-    <div style="font-size:40px;font-weight:300;color:#1c3a13;line-height:1.25;">Browse Products</div>
+    <div style="font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:#212121;line-height:1.15;">Browse Products</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">h2</div>
-      <div class="type-details">32px · weight 300 · lh 1.3</div>
+      <div class="type-details">32px · Playfair · bold · lh 1.2</div>
     </div>
-    <div style="font-size:32px;font-weight:300;color:#1c3a13;line-height:1.3;">Personal Care</div>
+    <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#212121;line-height:1.2;">Personal Care</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">h3</div>
-      <div class="type-details">24px · weight 400 · lh 1.35</div>
+      <div class="type-details">24px · Playfair · bold · lh 1.2</div>
     </div>
-    <div style="font-size:24px;font-weight:400;color:#1c3a13;line-height:1.35;">Cetaphil Gentle Skin Cleanser</div>
+    <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#212121;line-height:1.2;">Cetaphil Gentle Skin Cleanser</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">h4</div>
-      <div class="type-details">20px · weight 400 · lh 1.4</div>
+      <div class="type-details">20px · Jost · 400 · lh 1.4</div>
     </div>
-    <div style="font-size:20px;font-weight:400;color:#1c3a13;line-height:1.4;">Ingredient Safety</div>
+    <div style="font-family:'Jost',sans-serif;font-size:20px;font-weight:400;color:#212121;line-height:1.4;">Ingredient Safety</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">body</div>
-      <div class="type-details">16px · weight 400 · lh 1.6</div>
+      <div class="type-details">16px · Jost · 400 · lh 1.6</div>
     </div>
-    <div style="font-size:16px;font-weight:400;color:#4a5e3c;line-height:1.6;">A gentle, soap-free cleanser that removes dirt and makeup without disrupting the skin barrier.</div>
+    <div style="font-family:'Jost',sans-serif;font-size:16px;font-weight:400;color:#8B5A4A;line-height:1.6;">A gentle, soap-free cleanser that removes dirt and makeup without disrupting the skin barrier.</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">small</div>
-      <div class="type-details">14px · weight 400 · lh 1.5</div>
+      <div class="type-details">14px · Jost · 400 · lh 1.5</div>
     </div>
-    <div style="font-size:14px;font-weight:400;color:#4a5e3c;line-height:1.5;">Supporting text, metadata, tag labels, form helper text</div>
+    <div style="font-family:'Jost',sans-serif;font-size:14px;font-weight:400;color:#8B5A4A;line-height:1.5;">Supporting text, metadata, tag labels, form helper text</div>
   </div>
   <div class="type-row">
     <div class="type-meta">
       <div class="type-token">micro</div>
-      <div class="type-details">12px · weight 400 · lh 1.4</div>
+      <div class="type-details">12px · Jost · 400 · lh 1.4</div>
     </div>
-    <div style="font-size:12px;font-weight:400;color:#8a9a7c;line-height:1.4;">Timestamps · Legal text · Attribution · Minimal UI labels</div>
+    <div style="font-family:'Jost',sans-serif;font-size:12px;font-weight:400;color:#B89080;line-height:1.4;">Timestamps · Legal text · Attribution · Minimal UI labels</div>
   </div>
 </div>
 
@@ -553,44 +570,44 @@
   <h2 class="section-title">Border Radius</h2>
   <div class="radius-grid">
     <div class="radius-item">
-      <div class="radius-box" style="border-radius:8px;"></div>
+      <div class="radius-box" style="border-radius:3px;"></div>
       <div class="radius-name">radius-sm</div>
-      <div class="radius-val">8px — badges, tags</div>
+      <div class="radius-val">3px — badges, tags</div>
     </div>
     <div class="radius-item">
-      <div class="radius-box" style="border-radius:16px;"></div>
+      <div class="radius-box" style="border-radius:8px;"></div>
       <div class="radius-name">radius-md</div>
-      <div class="radius-val">16px — buttons, inputs</div>
+      <div class="radius-val">8px — cards, inputs</div>
     </div>
     <div class="radius-item">
-      <div class="radius-box" style="border-radius:24px;"></div>
+      <div class="radius-box" style="border-radius:12px;"></div>
       <div class="radius-name">radius-lg</div>
-      <div class="radius-val">24px — cards, modals</div>
+      <div class="radius-val">12px — modals, large cards</div>
     </div>
     <div class="radius-item">
-      <div class="radius-box" style="border-radius:9999px;width:80px;height:40px;"></div>
+      <div class="radius-box" style="border-radius:9999px;width:100px;height:44px;"></div>
       <div class="radius-name">radius-full</div>
-      <div class="radius-val">9999px — pills, avatars</div>
+      <div class="radius-val">9999px — pill buttons</div>
     </div>
   </div>
 </div>
 
 <!-- ─── SHADOWS ─── -->
 <div class="section">
-  <h2 class="section-title">Shadows — brand-tinted, flat aesthetic</h2>
+  <h2 class="section-title">Shadows — warm offset aesthetic</h2>
   <div class="shadow-grid">
     <div class="shadow-item">
-      <div class="shadow-box" style="box-shadow:0 1px 2px rgba(28,58,19,0.06);"></div>
+      <div class="shadow-box" style="box-shadow:3px 3px 0px rgba(188,87,36,0.12);"></div>
       <div class="shadow-name">shadow-sm</div>
-      <div class="shadow-val">Resting card state</div>
+      <div class="shadow-val">Resting card state, subtle lift</div>
     </div>
     <div class="shadow-item">
-      <div class="shadow-box" style="box-shadow:0 2px 8px rgba(28,58,19,0.08);"></div>
+      <div class="shadow-box" style="box-shadow:6px 6px 9px rgba(0,0,0,0.12);"></div>
       <div class="shadow-name">shadow-md</div>
       <div class="shadow-val">Hover state, dropdowns</div>
     </div>
     <div class="shadow-item">
-      <div class="shadow-box" style="box-shadow:0 4px 16px rgba(28,58,19,0.10);"></div>
+      <div class="shadow-box" style="box-shadow:12px 12px 50px rgba(0,0,0,0.20);"></div>
       <div class="shadow-name">shadow-lg</div>
       <div class="shadow-val">Modals, overlays</div>
     </div>
@@ -602,21 +619,21 @@
   <h2 class="section-title">Component Previews</h2>
 
   <div class="component-row">
-    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Buttons</span>
+    <span style="font-size:11px;color:#B89080;min-width:80px;text-transform:uppercase;letter-spacing:0.06em;">Buttons</span>
     <button class="btn-primary">Save to list</button>
     <button class="btn-secondary">View details</button>
     <button class="btn-ghost">Cancel</button>
   </div>
 
   <div class="component-row">
-    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Safety badges</span>
+    <span style="font-size:11px;color:#B89080;min-width:80px;text-transform:uppercase;letter-spacing:0.06em;">Safety badges</span>
     <span class="badge badge-clean"><span class="badge-dot"></span>Clean</span>
     <span class="badge badge-caution"><span class="badge-dot"></span>Caution</span>
     <span class="badge badge-avoid"><span class="badge-dot"></span>Avoid</span>
   </div>
 
   <div class="component-row">
-    <span style="font-size:12px;color:#8a9a7c;min-width:80px;">Category tags</span>
+    <span style="font-size:11px;color:#B89080;min-width:80px;text-transform:uppercase;letter-spacing:0.06em;">Category tags</span>
     <span class="tag">Personal Care</span>
     <span class="tag">Home Cleaning</span>
     <span class="tag">Baby Care</span>
@@ -624,7 +641,7 @@
   </div>
 
   <div class="component-row" style="align-items:flex-start;">
-    <span style="font-size:12px;color:#8a9a7c;min-width:80px;padding-top:12px;">Product card</span>
+    <span style="font-size:11px;color:#B89080;min-width:80px;text-transform:uppercase;letter-spacing:0.06em;padding-top:12px;">Product card</span>
     <div class="product-card">
       <div class="card-image">
         <div class="card-image-placeholder">
@@ -649,14 +666,14 @@
         </div>
         <div class="card-title">Cetaphil Gentle Skin Cleanser</div>
         <div class="card-desc">A soap-free formula that gently cleanses without stripping moisture from the skin.</div>
-        <button class="btn-secondary" style="font-size:14px;padding:6px 16px;margin-top:8px;">Save to list</button>
+        <button class="btn-secondary" style="font-size:12px;padding:8px 20px;margin-top:8px;align-self:flex-start;">Save to list</button>
       </div>
     </div>
   </div>
 </div>
 
-<p style="font-size:12px;color:#8a9a7c;text-align:center;padding-top:32px;border-top:1px solid #dde2d0;">
-  Clean Shopper Design System v2.0 · Generated 2026-04-14 · Inspired by seed.com visual language
+<p style="font-size:12px;color:#B89080;text-align:center;padding-top:32px;border-top:1px solid #FFC0A1;">
+  Clean Shopper Design System v3.0 · Generated 2026-04-16 · Inspired by Eat Yourself Skinny visual language
 </p>
 
 </body>

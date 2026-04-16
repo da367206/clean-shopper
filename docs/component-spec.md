@@ -414,3 +414,65 @@ div.flex.flex-col.items-center.justify-center.gap-space-md
 - Keep `title` brief (5 words or fewer)
 - Only include an `action` if there is a clear next step the user can take from this state
 - Do not use EmptyState for loading states — use a skeleton loader pattern instead
+
+---
+
+## ChatDrawer
+
+**Purpose:** A floating AI chat assistant that lets signed-in users ask ingredient safety questions, get product recommendations from the catalog, and learn about harmful chemicals — all powered by Claude AI. Rendered as a fixed floating button that expands into a chat panel.
+
+### Props
+None — ChatDrawer is self-contained. Mount it once inside the signed-in app layout.
+
+### Visual Structure
+```
+// Floating button (panel closed)
+button.fixed.bottom-20.right-4.md:bottom-6.md:right-6.z-40
+       .w-14.h-14.rounded-full
+       .bg-primary.text-white.shadow-shadow-lg
+  ChatIcon
+
+// Panel (open) — full-width slide-up on mobile, fixed card on desktop
+div.fixed.z-50
+   .bottom-0.left-0.right-0.h-[82vh]                // mobile
+   .md:bottom-6.md:right-6.md:w-96.md:h-[600px]     // desktop
+   .bg-white.rounded-t-radius-lg.md:rounded-radius-lg
+   .border.border-neutral-200.shadow-shadow-lg.flex.flex-col
+
+  // Header
+  div.flex.items-center.gap-space-sm.px-space-lg.py-space-md.border-b.border-neutral-200
+    div.w-8.h-8.rounded-full.bg-primary/10.text-primary  // icon avatar
+    div                                                    // title + subtitle
+      div.text-small.font-semibold.text-neutral-900        // "Ask Clean Shopper"
+      div.text-micro.text-neutral-400                      // subtitle
+    button.text-neutral-400                                // close button
+
+  // Messages list (scrollable)
+  div.flex-1.overflow-y-auto.p-space-md.flex.flex-col.gap-space-sm
+    // Empty state: centered icon + suggestion buttons
+    // User bubble: justify-end, bg-primary text-white, rounded-br-none
+    // Assistant bubble: justify-start, bg-neutral-100 text-neutral-900, rounded-bl-none
+    // Loading: three animated dots in assistant bubble style
+    // Error: text-micro text-error centered
+
+  // Input area
+  div.flex.gap-space-sm.items-center.px-space-md.py-space-md.border-t.border-neutral-200
+    input.flex-1.bg-neutral-50.border.border-neutral-200.rounded-radius-full
+    button.w-9.h-9.rounded-full.bg-primary.text-white    // send button
+```
+
+### States
+- **Closed:** Only the floating button is visible
+- **Open (empty):** Panel shows welcome message and 4 suggestion buttons
+- **Loading:** Three bouncing dots shown in an assistant bubble while waiting for Claude
+- **Error:** Error message shown in `text-micro text-error` below the last message
+- **Mobile:** Full-width bottom sheet with a dark backdrop overlay (`bg-black/30`)
+- **Desktop:** Fixed 384px-wide card, bottom-right corner, no backdrop
+
+### Usage Rules
+- Mount exactly once in the signed-in app layout (inside `App.jsx`)
+- Do not show when the user is not signed in
+- Do not add external props — all state is internal
+- Suggestion buttons send their text as the first user message directly (no intermediate state)
+- Messages sent with Enter key (without Shift) or the send button
+- Panel auto-scrolls to the latest message on each new turn

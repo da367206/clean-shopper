@@ -3,6 +3,7 @@ import { supabase } from './lib/supabase'
 import { signOut } from './lib/api/auth'
 import NavBar from './components/NavBar'
 import Sidebar from './components/Sidebar'
+import ChatDrawer from './components/ChatDrawer'
 import BrowsePage from './features/browse/BrowsePage'
 import SearchPage from './features/search/SearchPage'
 import SignInPage from './features/auth/SignInPage'
@@ -105,6 +106,9 @@ export default function App() {
 
       {/* Mobile bottom nav */}
       <NavBar activeTab={activeTab} onNavigate={setActiveTab} />
+
+      {/* AI chat assistant */}
+      <ChatDrawer />
     </div>
   )
 }

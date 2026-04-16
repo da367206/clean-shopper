@@ -5,33 +5,35 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1c3a13',
-          light:   '#2e5c20',
-          dark:    '#0f2209',
+          DEFAULT: '#BC5724',
+          light:   '#D4713A',
+          dark:    '#9A4519',
         },
         secondary: {
-          DEFAULT: '#eff1e4',
-          dark:    '#dde2d0',
+          DEFAULT: '#FFE7DC',
+          dark:    '#FFC0A1',
         },
         accent: {
-          DEFAULT: '#9f995b',
-          light:   '#c4be84',
+          DEFAULT: '#D7E0BF',
+          light:   '#E8EDD6',
+          cool:    '#CDDCE0',
         },
         success: '#16803a',
         warning: '#d97706',
         error:   '#eb5757',
         neutral: {
-          50:  '#fcfcf7',
-          100: '#eff1e4',
-          200: '#dde2d0',
-          400: '#8a9a7c',
-          600: '#4a5e3c',
-          900: '#1c3a13',
+          50:  '#FFF5EF',
+          100: '#FFE7DC',
+          200: '#FFC0A1',
+          400: '#B89080',
+          600: '#8B5A4A',
+          900: '#212121',
         },
       },
 
       fontFamily: {
-        sans: ['DM Sans', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        sans:  ['Jost', 'system-ui', 'sans-serif'],
       },
 
       fontSize: {
@@ -39,10 +41,10 @@ export default {
         small:   ['14px', { lineHeight: '1.5', fontWeight: '400' }],
         body:    ['16px', { lineHeight: '1.6', fontWeight: '400' }],
         h4:      ['20px', { lineHeight: '1.4', fontWeight: '400' }],
-        h3:      ['24px', { lineHeight: '1.35', fontWeight: '400' }],
-        h2:      ['32px', { lineHeight: '1.3', fontWeight: '300' }],
-        h1:      ['40px', { lineHeight: '1.25', fontWeight: '300' }],
-        display: ['48px', { lineHeight: '1.2', fontWeight: '300' }],
+        h3:      ['24px', { lineHeight: '1.2', fontWeight: '700' }],
+        h2:      ['32px', { lineHeight: '1.2', fontWeight: '700' }],
+        h1:      ['40px', { lineHeight: '1.15', fontWeight: '700' }],
+        display: ['48px', { lineHeight: '1.1', fontWeight: '700' }],
       },
 
       spacing: {
@@ -67,16 +69,16 @@ export default {
       },
 
       borderRadius: {
-        'radius-sm':   '8px',
-        'radius-md':   '16px',
-        'radius-lg':   '24px',
+        'radius-sm':   '3px',
+        'radius-md':   '8px',
+        'radius-lg':   '12px',
         'radius-full': '9999px',
       },
 
       boxShadow: {
-        'shadow-sm': '0 1px 2px rgba(28,58,19,0.06)',
-        'shadow-md': '0 2px 8px rgba(28,58,19,0.08)',
-        'shadow-lg': '0 4px 16px rgba(28,58,19,0.10)',
+        'shadow-sm': '3px 3px 0px rgba(188,87,36,0.12)',
+        'shadow-md': '6px 6px 9px rgba(0,0,0,0.12)',
+        'shadow-lg': '12px 12px 50px rgba(0,0,0,0.20)',
       },
     },
   },

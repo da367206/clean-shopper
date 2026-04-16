@@ -73,7 +73,7 @@ export default function ProductCard({ name, safetyScore, score, category, descri
       </div>
 
       {/* Description */}
-      <p className="text-small text-neutral-600 leading-relaxed">
+      <p className="text-small text-neutral-600 leading-relaxed line-clamp-2">
         {description}
       </p>
 
