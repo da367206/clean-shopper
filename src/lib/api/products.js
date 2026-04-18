@@ -23,10 +23,12 @@ export async function fetchProductsByCategory(category) {
 }
 
 export async function fetchProductById(id) {
+  // Support both full UUIDs and the 8-char prefix used in the chat system prompt
   const { data, error } = await supabase
     .from('products')
     .select('*')
-    .eq('id', id)
+    .ilike('id', `${id}%`)
+    .limit(1)
     .single()
   if (error) throw error
   return data
