@@ -106,16 +106,10 @@ export default function BrowsePage({ onSearchNavigate }) {
   }
 
   return (
-    <div className="flex flex-col gap-space-xl">
+    <div className="flex flex-col">
 
-      {/* Hero */}
-      <section className="
-        -mx-space-xl -mt-space-xl md:-mx-space-3xl md:-mt-space-3xl
-        px-space-xl md:px-space-3xl
-        pt-space-4xl pb-space-3xl
-        bg-primary
-        text-center
-      ">
+      {/* Hero — full-bleed, no container constraint */}
+      <section className="bg-primary px-space-xl md:px-space-3xl pt-space-4xl pb-space-3xl text-center">
         <h1 className="text-display text-white leading-tight">
           Know what's in<br className="hidden sm:block" /> every product.
         </h1>
@@ -157,6 +151,9 @@ export default function BrowsePage({ onSearchNavigate }) {
           </button>
         </div>
       </section>
+
+      {/* Constrained content below the hero */}
+      <div className="max-w-5xl mx-auto w-full px-space-xl md:px-space-3xl pt-space-xl pb-space-4xl flex flex-col gap-space-xl">
 
       {/* Category filters */}
       <div className="flex flex-wrap gap-space-sm">
@@ -208,6 +205,7 @@ export default function BrowsePage({ onSearchNavigate }) {
         </div>
       )}
 
+      </div>{/* end constrained content */}
     </div>
   )
 }
