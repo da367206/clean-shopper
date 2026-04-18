@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Run all Playwright e2e tests before allowing a commit.
+# Any failing test aborts the commit.
+npm run test:e2e
