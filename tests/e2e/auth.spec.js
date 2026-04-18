@@ -52,3 +52,17 @@ test('sign-up, sign-out, and sign-in flow', async ({ page }) => {
   // 7. Back on the Browse page.
   await expect(page.getByRole('heading', { name: 'Browse' })).toBeVisible({ timeout: 20_000 })
 })
+
+// Protected pages are session-gated at the App.jsx level — there's no router,
+// so any visitor with no Supabase session lands on Sign in, regardless of URL.
+test('signed-out visitors cannot reach Browse / Search', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Browse' })).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'Search', level: 1 })).toHaveCount(0)
+
+  // Hash routes don't leak in either — the session gate is the only authority.
+  await page.goto('/#browse')
+  await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Browse' })).toHaveCount(0)
+})
