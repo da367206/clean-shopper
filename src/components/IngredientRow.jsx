@@ -130,7 +130,7 @@ export default function IngredientRow({
             <InfoIcon />
             More info on this ingredient
           </a>
-          <div>
+          <div className="pt-space-sm mt-space-xs border-t border-neutral-100">
             <Button
               variant="secondary"
               size="sm"
