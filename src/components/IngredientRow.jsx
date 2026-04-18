@@ -20,31 +20,6 @@ const ChevronIcon = ({ expanded }) => (
   </svg>
 )
 
-const InfoIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="12" y1="16" x2="12" y2="12" />
-    <line x1="12" y1="8" x2="12.01" y2="8" />
-  </svg>
-)
-
-// EWG Skin Deep search URL — always resolves, no 404 risk from hallucinated
-// direct IDs. Users land on a search-results page with the ingredient
-// highlighted.
-function ewgSearchUrl(name) {
-  return `https://www.ewg.org/skindeep/search/?search=${encodeURIComponent(name)}`
-}
 
 const SAFETY_DOT = {
   clean:   'bg-success',
@@ -121,16 +96,7 @@ export default function IngredientRow({
           {concerns && (
             <p className="text-small text-neutral-600">{concerns}</p>
           )}
-          <a
-            href={ewgSearchUrl(name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-space-xs text-small text-primary hover:underline self-start"
-          >
-            <InfoIcon />
-            More info on this ingredient
-          </a>
-          <div className="pt-space-sm mt-space-xs border-t border-neutral-100">
+          <div className="pt-space-sm border-t border-neutral-100">
             <Button
               variant="secondary"
               size="sm"
