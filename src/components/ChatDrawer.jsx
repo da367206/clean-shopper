@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { sendChatMessage } from '../lib/api/chat'
+import { fetchProductById } from '../lib/api/products'
 
 const ChatIcon = ({ size = 22 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -51,43 +52,87 @@ function ChatMessage({ content, onProductClick }) {
         }
 
         return (
-          <p key={pi}>
+          <div key={pi}>
             {lines.map((line, li) => (
-              <span key={li}>
-                {li > 0 && <br />}
+              <span key={li} className="block">
                 {renderInline(line, onProductClick)}
               </span>
             ))}
-          </p>
+          </div>
         )
       })}
     </div>
   )
 }
 
-/** Render inline tokens: [[Name|id]] product links and **bold** */
+/** Small product card rendered inline in a chat bubble */
+function ProductLinkCard({ id, name, onProductClick }) {
+  const [product, setProduct] = useState(null)
+
+  useEffect(() => {
+    fetchProductById(id).then(setProduct).catch(() => null)
+  }, [id])
+
+  const SCORE_COLOR = {
+    clean:   'text-success bg-success/10',
+    caution: 'text-warning bg-warning/10',
+    avoid:   'text-error bg-error/10',
+  }
+
+  return (
+    <button
+      onClick={() => onProductClick?.(id)}
+      className="
+        flex items-center gap-space-sm w-full text-left mt-space-xs mb-space-3xs
+        bg-white border border-neutral-200 rounded-radius-md overflow-hidden
+        hover:border-primary hover:shadow-shadow-sm
+        transition-all duration-150
+      "
+    >
+      {/* Image */}
+      <div className="w-16 h-16 flex-shrink-0 bg-neutral-100 overflow-hidden">
+        {product?.image_url ? (
+          <img
+            src={product.image_url}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-neutral-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0 py-space-xs pr-space-sm">
+        <p className="text-small font-medium text-neutral-900 leading-snug line-clamp-2">
+          {product?.name ?? name}
+        </p>
+        {product?.safety_score && (
+          <span className={`mt-space-3xs inline-block text-micro font-semibold px-space-xs py-[2px] rounded-full ${SCORE_COLOR[product.safety_score] ?? ''}`}>
+            {product.safety_score.charAt(0).toUpperCase() + product.safety_score.slice(1)} · {product.score}/100
+          </span>
+        )}
+      </div>
+
+      {/* Arrow */}
+      <div className="pr-space-sm text-neutral-400 flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </button>
+  )
+}
+
+/** Render inline tokens: [[Name|id]] product cards and **bold** */
 function renderInline(text, onProductClick) {
-  // Split on product links [[Name|id]] and bold **text**
   const parts = text.split(/(\[\[[^\]]+\]\]|\*\*[^*]+\*\*)/)
   return parts.map((part, i) => {
-    // Product link: [[Name|id]]
+    // Product card: [[Name|id]]
     const linkMatch = part.match(/^\[\[(.+?)\|(.+?)\]\]$/)
     if (linkMatch) {
       const [, name, id] = linkMatch
-      return (
-        <button
-          key={i}
-          onClick={() => onProductClick?.(id)}
-          className="
-            inline-flex items-center gap-space-3xs
-            text-primary font-medium underline underline-offset-2
-            hover:text-primary-light transition-colors duration-150
-            cursor-pointer
-          "
-        >
-          {name}
-        </button>
-      )
+      return <ProductLinkCard key={i} id={id} name={name} onProductClick={onProductClick} />
     }
     // Bold: **text**
     if (part.startsWith('**') && part.endsWith('**')) {
