@@ -102,6 +102,9 @@ export default function App() {
         <div className="max-w-5xl mx-auto p-space-xl md:p-space-3xl pb-space-4xl md:pb-space-3xl">
           {activeTab === 'search' ? <SearchPage /> : <BrowsePage />}
         </div>
+        <footer className="max-w-5xl mx-auto px-space-xl md:px-space-3xl pb-space-4xl md:pb-space-xl text-center">
+          <p className="text-small text-neutral-400">Built with Claude Code</p>
+        </footer>
       </main>
 
       {/* Mobile bottom nav */}
