@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar'
 import ChatDrawer from './components/ChatDrawer'
 import BrowsePage from './features/browse/BrowsePage'
 import SearchPage from './features/search/SearchPage'
+import ListsPage from './features/lists/ListsPage'
 import SignInPage from './features/auth/SignInPage'
 import SignUpPage from './features/auth/SignUpPage'
 
@@ -104,6 +105,8 @@ export default function App() {
           <div className="max-w-5xl mx-auto p-space-xl md:p-space-3xl pb-space-4xl md:pb-space-3xl">
             <SearchPage initialQuery={heroQuery} onQueryConsumed={() => setHeroQuery('')} />
           </div>
+        ) : activeTab === 'lists' ? (
+          <ListsPage />
         ) : (
           <BrowsePage onSearchNavigate={(q) => { setHeroQuery(q); setActiveTab('search') }} />
         )}

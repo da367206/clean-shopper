@@ -1,6 +1,27 @@
 import { supabase } from '../supabase'
 
 /**
+ * Fetch full product data for all products the current user has saved.
+ * Returns an array of product objects, ordered by most recently saved.
+ */
+export async function fetchSavedProducts() {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) return []
+
+  const { data, error } = await supabase
+    .from('saved_products')
+    .select('product_id, created_at, products(*)')
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('fetchSavedProducts error:', error)
+    throw error
+  }
+
+  return data.map((row) => row.products).filter(Boolean)
+}
+
+/**
  * Fetch all product IDs the current user has saved.
  * Returns an array of product_id strings.
  */
