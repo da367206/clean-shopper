@@ -47,6 +47,10 @@ export default {
         display: ['48px', { lineHeight: '1.1', fontWeight: '700' }],
       },
 
+      width: {
+        'img-detail': '350px',
+      },
+
       spacing: {
         'space-3xs': '2px',
         'space-2xs': '6px',

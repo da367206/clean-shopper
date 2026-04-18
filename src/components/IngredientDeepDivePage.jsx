@@ -96,7 +96,7 @@ export default function IngredientDeepDivePage({
       <header className="flex flex-col sm:flex-row gap-space-lg sm:gap-space-xl items-stretch">
 
         {/* Image */}
-        <div className="relative w-full sm:w-56 sm:flex-shrink-0 h-img-card sm:h-auto rounded-radius-lg overflow-hidden bg-neutral-100 flex items-center justify-center shadow-shadow-sm">
+        <div className="relative w-full sm:w-img-detail sm:flex-shrink-0 h-img-card sm:h-auto rounded-radius-lg overflow-hidden bg-neutral-100 flex items-center justify-center shadow-shadow-sm">
           {product.image_url ? (
             <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
           ) : (
