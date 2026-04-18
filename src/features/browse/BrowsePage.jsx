@@ -14,7 +14,15 @@ const SearchIcon = () => (
   </svg>
 )
 
-export default function BrowsePage({ onSearchNavigate }) {
+const ScanIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+    <line x1="7" y1="12" x2="17" y2="12"/>
+  </svg>
+)
+
+export default function BrowsePage({ onSearchNavigate, onScanOpen }) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [savedIds, setSavedIds] = useState([])
   const [products, setProducts] = useState([])
@@ -165,6 +173,22 @@ export default function BrowsePage({ onSearchNavigate }) {
           >
             <SearchIcon />
             Search
+          </button>
+          <button
+            type="button"
+            onClick={onScanOpen}
+            aria-label="Scan barcode"
+            className="
+              flex items-center gap-space-xs
+              h-touch px-space-md flex-shrink-0
+              bg-white/20 text-white font-medium text-body
+              rounded-radius-md border border-white/40
+              hover:bg-white/30 transition-colors duration-150
+              focus:outline-none focus:ring-2 focus:ring-white
+            "
+          >
+            <ScanIcon />
+            <span className="hidden sm:inline">Scan</span>
           </button>
         </div>
         </div>{/* end content */}

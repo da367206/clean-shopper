@@ -23,7 +23,7 @@ const ScanIcon = () => (
   </svg>
 )
 
-export default function SearchPage({ initialQuery = '', onQueryConsumed }) {
+export default function SearchPage({ initialQuery = '', onQueryConsumed, autoOpenScanner = false, onScannerAutoOpened }) {
   const [query, setQuery] = useState(initialQuery)
   const [results, setResults] = useState([])
   const [savedIds, setSavedIds] = useState([])
@@ -54,6 +54,16 @@ export default function SearchPage({ initialQuery = '', onQueryConsumed }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Auto-open scanner when triggered from home page or sidebar.
+  useEffect(() => {
+    if (autoOpenScanner) {
+      setScanResult(null)
+      setScannerOpen(true)
+      onScannerAutoOpened?.()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoOpenScanner])
 
   // Load saved product IDs once on mount
   useEffect(() => {

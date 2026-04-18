@@ -52,6 +52,14 @@ const NAV_ITEMS = [
   },
 ]
 
+const ScanIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+    <path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+    <line x1="7" y1="12" x2="17" y2="12"/>
+  </svg>
+)
+
 const SignOutIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -60,7 +68,7 @@ const SignOutIcon = () => (
   </svg>
 )
 
-export default function Sidebar({ activeTab, onNavigate, onSignOut }) {
+export default function Sidebar({ activeTab, onNavigate, onSignOut, onScanOpen }) {
   return (
     <aside className="
       hidden md:flex flex-col
@@ -104,6 +112,27 @@ export default function Sidebar({ activeTab, onNavigate, onSignOut }) {
           )
         })}
       </nav>
+
+      {/* Scan barcode */}
+      {onScanOpen && (
+        <button
+          onClick={onScanOpen}
+          className="
+            flex items-center gap-space-md
+            px-space-md py-space-sm
+            rounded-radius-md
+            text-body font-medium
+            text-neutral-600
+            hover:bg-neutral-100 hover:text-neutral-900
+            transition-colors duration-150
+            w-full text-left
+            border border-neutral-200
+          "
+        >
+          <ScanIcon />
+          Scan Barcode
+        </button>
+      )}
 
       {/* Sign out — pinned to bottom */}
       {onSignOut && (

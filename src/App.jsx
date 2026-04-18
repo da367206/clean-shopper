@@ -22,6 +22,12 @@ export default function App() {
   const [session, setSession] = useState(undefined) // undefined = loading, null = signed out
   const [authView, setAuthView] = useState('sign-in') // 'sign-in' | 'sign-up'
   const [heroQuery, setHeroQuery] = useState('')
+  const [autoOpenScanner, setAutoOpenScanner] = useState(false)
+
+  function handleScanOpen() {
+    setAutoOpenScanner(true)
+    setActiveTab('search')
+  }
 
   async function handleSignOut() {
     await signOut()
@@ -73,7 +79,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-neutral-50">
       {/* Desktop sidebar */}
-      <Sidebar activeTab={activeTab} onNavigate={setActiveTab} onSignOut={handleSignOut} />
+      <Sidebar activeTab={activeTab} onNavigate={setActiveTab} onSignOut={handleSignOut} onScanOpen={handleScanOpen} />
 
       {/* Mobile header */}
       <header className="
@@ -103,12 +109,20 @@ export default function App() {
       <main className="md:pl-56">
         {activeTab === 'search' ? (
           <div className="max-w-5xl mx-auto p-space-xl md:p-space-3xl pb-space-4xl md:pb-space-3xl">
-            <SearchPage initialQuery={heroQuery} onQueryConsumed={() => setHeroQuery('')} />
+            <SearchPage
+              initialQuery={heroQuery}
+              onQueryConsumed={() => setHeroQuery('')}
+              autoOpenScanner={autoOpenScanner}
+              onScannerAutoOpened={() => setAutoOpenScanner(false)}
+            />
           </div>
         ) : activeTab === 'lists' ? (
           <ListsPage />
         ) : (
-          <BrowsePage onSearchNavigate={(q) => { setHeroQuery(q); setActiveTab('search') }} />
+          <BrowsePage
+            onSearchNavigate={(q) => { setHeroQuery(q); setActiveTab('search') }}
+            onScanOpen={handleScanOpen}
+          />
         )}
         <footer className="max-w-5xl mx-auto px-space-xl md:px-space-3xl pb-space-4xl md:pb-space-xl text-center">
           <p className="text-small text-neutral-400">Built with Claude Code</p>
