@@ -37,3 +37,4 @@ Email/password authentication via Supabase Auth. Local state plus Supabase for d
 - Prompt optimization: Use /prompt-optimizer to evaluate and refine instructions before sending them
 - Tailwind config: See tailwind.config.js for design tokens as Tailwind theme extensions. Always use theme classes, never hardcode values.
 - Figma design system: Connected via Figma MCP. The canonical design token values live in the Figma file. When checking or updating design tokens, read the current values from Figma using get_variable_defs and compare against the token files in the codebase.
+- Feature specs: See /docs/feature-spec-ingredient-deep-dive.md — spec for the Ingredient Deep-Dive feature. Each new feature gets its own /docs/feature-spec-[feature-name].md; read the relevant spec before implementing.
