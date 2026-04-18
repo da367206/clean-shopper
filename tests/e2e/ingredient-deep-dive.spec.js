@@ -85,11 +85,10 @@ test.describe('Ingredient Deep-Dive', () => {
     await expect(glycerinRow).toHaveAttribute('aria-expanded', 'true')
 
     // AC #4: purpose subtitle is always visible in the row header; expanded
-    // panel contains concerns + source attribution.
+    // panel contains concerns + EWG link + Ask button.
     await expect(glycerinRow).toContainText(/humectant/i) // always-visible purpose subtitle
     const panel = page.locator(`#${controlsId}`)
     await expect(panel).toBeVisible()
-    await expect(panel).toContainText(/AI-generated \(Claude\)/i) // source line
     await expect(panel.getByRole('button', { name: 'Ask about this ingredient' })).toBeVisible()
 
     // External reference link: should open EWG Skin Deep in a new tab with

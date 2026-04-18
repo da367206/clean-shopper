@@ -549,7 +549,7 @@ div.flex.flex-col.gap-space-sm
 
 ## IngredientRow
 
-**Purpose:** Collapsible list item for a single ingredient. Two-line collapsed row (name + purpose subtitle always visible); safety indicated on the right as a text label + colored dot + chevron. Expanded panel reveals concerns, EWG reference link, source attribution, and Ask-AI action.
+**Purpose:** Collapsible list item for a single ingredient. Two-line collapsed row (name + purpose subtitle always visible); safety indicated on the right as a text label + colored dot + chevron. Expanded panel reveals concerns, EWG reference link, and Ask-AI action.
 
 ### Props
 | Prop | Type | Required | Description |
@@ -558,7 +558,6 @@ div.flex.flex-col.gap-space-sm
 | `safetyScore` | `'clean' \| 'caution' \| 'avoid'` | Yes | Per-ingredient rating. |
 | `purpose` | string | No | One-sentence description of what the ingredient does. Always visible as a subtitle in the row header. |
 | `concerns` | string | No | 1–3 sentences explaining the rating. Only shown in expanded panel. |
-| `source` | string | No | Source attribution label. Defaults to `"AI-generated (Claude) · grounded in EWG Skin Deep"`. |
 | `onAskAI` | function | Yes | Handler called with `{ name, safetyScore }` when the user taps "Ask about this ingredient". |
 
 ### Visual Structure
@@ -582,7 +581,6 @@ li.flex.flex-col
   div.flex.flex-col.gap-space-sm.px-space-md.pb-space-md
     p.text-small.text-neutral-600                       // concerns
     a.text-small.text-primary + InfoIcon               // "More info on this ingredient" → EWG Skin Deep
-    p.text-micro.text-neutral-400                      // source
     Button(variant="secondary", size="sm")             // Ask about this ingredient
 ```
 

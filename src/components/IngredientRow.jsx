@@ -63,7 +63,6 @@ export default function IngredientRow({
   safetyScore,
   purpose,
   concerns,
-  source = 'AI-generated (Claude) · grounded in EWG Skin Deep',
   onAskAI,
 }) {
   const [expanded, setExpanded] = useState(false)
@@ -131,7 +130,6 @@ export default function IngredientRow({
             <InfoIcon />
             More info on this ingredient
           </a>
-          <p className="text-micro text-neutral-400">{source}</p>
           <div>
             <Button
               variant="secondary"
