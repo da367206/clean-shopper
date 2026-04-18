@@ -68,25 +68,37 @@ function ChatMessage({ content, onProductClick }) {
 /** Small product card rendered inline in a chat bubble */
 function ProductLinkCard({ id, name, onProductClick }) {
   const [product, setProduct] = useState(null)
+  const [imgError, setImgError] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function load() {
-      try {
-        // Try exact ID match first (works when Claude uses the real 8-char prefix correctly)
-        const byId = await fetchProductById(id).catch(() => null)
-        if (byId) { setProduct(byId); return }
+    let cancelled = false
+    setLoading(true)
+    setProduct(null)
+    setImgError(false)
 
-        // Fallback: search by name. Claude often prepends a brand name that
-        // isn't in the DB, so try progressively shorter trailing substrings.
-        const words = name.trim().split(/\s+/)
-        for (let take = Math.min(4, words.length); take >= 2; take--) {
-          const term = words.slice(words.length - take).join(' ')
-          const results = await searchProducts(term).catch(() => [])
-          if (results.length > 0) { setProduct(results[0]); return }
+    async function load() {
+      // 1. Try exact UUID match
+      const byId = await fetchProductById(id).catch(() => null)
+      if (byId && !cancelled) { setProduct(byId); setLoading(false); return }
+
+      // 2. Fallback: search by trailing words (Claude often prepends brand names
+      //    not in the DB, so shorter substrings match better)
+      const words = name.trim().split(/\s+/)
+      for (let take = Math.min(4, words.length); take >= 2; take--) {
+        const term = words.slice(words.length - take).join(' ')
+        const results = await searchProducts(term).catch(() => [])
+        if (results.length > 0 && !cancelled) {
+          setProduct(results[0])
+          setLoading(false)
+          return
         }
-      } catch { /* silent */ }
+      }
+      if (!cancelled) setLoading(false)
     }
+
     load()
+    return () => { cancelled = true }
   }, [id, name])
 
   const SCORE_COLOR = {
@@ -107,12 +119,14 @@ function ProductLinkCard({ id, name, onProductClick }) {
     >
       {/* Image */}
       <div className="w-16 h-16 flex-shrink-0 bg-neutral-100 overflow-hidden">
-        {product?.image_url ? (
+        {loading ? (
+          <div className="w-full h-full animate-pulse bg-neutral-200" />
+        ) : product?.image_url && !imgError ? (
           <img
             src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover"
-            onError={e => { e.currentTarget.style.display = 'none' }}
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-neutral-300">
