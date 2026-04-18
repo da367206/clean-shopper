@@ -72,12 +72,18 @@ function ProductLinkCard({ id, name, onProductClick }) {
   useEffect(() => {
     async function load() {
       try {
-        // Try exact ID match first
+        // Try exact ID match first (works when Claude uses the real 8-char prefix correctly)
         const byId = await fetchProductById(id).catch(() => null)
         if (byId) { setProduct(byId); return }
-        // Fallback: search by the display name Claude gave us
-        const results = await searchProducts(name).catch(() => [])
-        if (results.length > 0) setProduct(results[0])
+
+        // Fallback: search by name. Claude often prepends a brand name that
+        // isn't in the DB, so try progressively shorter trailing substrings.
+        const words = name.trim().split(/\s+/)
+        for (let take = Math.min(4, words.length); take >= 2; take--) {
+          const term = words.slice(words.length - take).join(' ')
+          const results = await searchProducts(term).catch(() => [])
+          if (results.length > 0) { setProduct(results[0]); return }
+        }
       } catch { /* silent */ }
     }
     load()
