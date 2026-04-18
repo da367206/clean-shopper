@@ -15,7 +15,7 @@ function buildSystemPrompt(products) {
   const catalog = products
     .map(
       p =>
-        `• ${p.brand} ${p.name} (${p.category}) — ${p.safety_score.toUpperCase()} rating, score ${p.score}/100. ${p.description}`
+        `• [id:${p.id}] ${p.brand} ${p.name} (${p.category}) — ${p.safety_score.toUpperCase()} rating, score ${p.score}/100. ${p.description}`
     )
     .join('\n')
 
@@ -37,7 +37,8 @@ INSTRUCTIONS:
 - Be warm and helpful, not clinical.
 
 FORMATTING:
-- Use **bold** (double asterisks) for product names and key terms.
+- When mentioning a specific product from the catalog, always format it as a link: [[Product Name|id]] using the product's id from the catalog. Example: [[Wool Dryer Balls|abc-123]].
+- Use **bold** (double asterisks) for key terms and ingredient names (not product names, since those use the link format).
 - Use a dash + space (- ) at the start of a line for bullet lists when listing multiple products or points.
 - Separate distinct sections with a blank line.
 - Do not use headers, numbered lists, or any other markdown.`

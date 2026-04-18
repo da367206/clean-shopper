@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './lib/supabase'
 import { signOut } from './lib/api/auth'
+import { fetchProductById } from './lib/api/products'
 import NavBar from './components/NavBar'
 import Sidebar from './components/Sidebar'
 import ChatDrawer from './components/ChatDrawer'
@@ -23,6 +24,19 @@ export default function App() {
   const [authView, setAuthView] = useState('sign-in') // 'sign-in' | 'sign-up'
   const [heroQuery, setHeroQuery] = useState('')
   const [autoOpenScanner, setAutoOpenScanner] = useState(false)
+  const [chatDeepDiveProduct, setChatDeepDiveProduct] = useState(null)
+
+  async function handleChatProductClick(productId) {
+    try {
+      const product = await fetchProductById(productId)
+      if (product) {
+        setChatDeepDiveProduct(product)
+        setActiveTab('home')
+      }
+    } catch (err) {
+      console.error('Failed to fetch product from chat link:', err)
+    }
+  }
 
   function handleScanOpen() {
     setAutoOpenScanner(true)
@@ -122,6 +136,8 @@ export default function App() {
           <BrowsePage
             onSearchNavigate={(q) => { setHeroQuery(q); setActiveTab('search') }}
             onScanOpen={handleScanOpen}
+            chatDeepDiveProduct={chatDeepDiveProduct}
+            onChatDeepDiveClosed={() => setChatDeepDiveProduct(null)}
           />
         )}
         <footer className="max-w-5xl mx-auto px-space-xl md:px-space-3xl pb-space-4xl md:pb-space-xl text-center">
@@ -133,7 +149,7 @@ export default function App() {
       <NavBar activeTab={activeTab} onNavigate={setActiveTab} />
 
       {/* AI chat assistant */}
-      <ChatDrawer />
+      <ChatDrawer onProductClick={handleChatProductClick} />
     </div>
   )
 }

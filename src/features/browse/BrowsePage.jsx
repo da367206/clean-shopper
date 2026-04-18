@@ -71,7 +71,7 @@ const ScanIcon = () => (
   </svg>
 )
 
-export default function BrowsePage({ onSearchNavigate, onScanOpen }) {
+export default function BrowsePage({ onSearchNavigate, onScanOpen, chatDeepDiveProduct, onChatDeepDiveClosed }) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [savedIds, setSavedIds] = useState([])
   const [products, setProducts] = useState([])
@@ -81,6 +81,15 @@ export default function BrowsePage({ onSearchNavigate, onScanOpen }) {
   const [heroQuery, setHeroQuery] = useState('')
   const [featured, setFeatured] = useState([])
   const savedScrollYRef = useRef(0)
+
+  // Open deep dive when triggered from chat
+  useEffect(() => {
+    if (chatDeepDiveProduct) {
+      savedScrollYRef.current = window.scrollY
+      setDeepDiveProduct(chatDeepDiveProduct)
+      window.scrollTo(0, 0)
+    }
+  }, [chatDeepDiveProduct])
 
   const handleHeroSearch = useCallback(() => {
     const trimmed = heroQuery.trim()
@@ -95,7 +104,7 @@ export default function BrowsePage({ onSearchNavigate, onScanOpen }) {
 
   function closeDeepDive() {
     setDeepDiveProduct(null)
-    // Restore after React commits the list view.
+    onChatDeepDiveClosed?.()
     requestAnimationFrame(() => window.scrollTo(0, savedScrollYRef.current))
   }
 

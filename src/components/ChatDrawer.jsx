@@ -23,11 +23,12 @@ const SendIcon = () => (
 
 /**
  * Renders assistant message text with light formatting:
- *   **bold** → <strong>, lines starting with "- " → bullet items,
- *   blank lines → paragraph breaks.
+ *   [[Name|id]] → clickable product chip
+ *   **bold**    → <strong>
+ *   lines with "- " → bullet list
+ *   blank lines → paragraph breaks
  */
-function ChatMessage({ content }) {
-  // Split into paragraphs on blank lines
+function ChatMessage({ content, onProductClick }) {
   const paragraphs = content.split(/\n{2,}/)
 
   return (
@@ -42,7 +43,7 @@ function ChatMessage({ content }) {
               {lines.map((line, li) => (
                 <li key={li} className="flex gap-space-xs">
                   <span className="text-primary mt-[3px] flex-shrink-0">•</span>
-                  <span>{renderInline(line.replace(/^-\s*/, ''))}</span>
+                  <span>{renderInline(line.replace(/^-\s*/, ''), onProductClick)}</span>
                 </li>
               ))}
             </ul>
@@ -54,7 +55,7 @@ function ChatMessage({ content }) {
             {lines.map((line, li) => (
               <span key={li}>
                 {li > 0 && <br />}
-                {renderInline(line)}
+                {renderInline(line, onProductClick)}
               </span>
             ))}
           </p>
@@ -64,10 +65,31 @@ function ChatMessage({ content }) {
   )
 }
 
-/** Render inline **bold** spans */
-function renderInline(text) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/)
+/** Render inline tokens: [[Name|id]] product links and **bold** */
+function renderInline(text, onProductClick) {
+  // Split on product links [[Name|id]] and bold **text**
+  const parts = text.split(/(\[\[[^\]]+\]\]|\*\*[^*]+\*\*)/)
   return parts.map((part, i) => {
+    // Product link: [[Name|id]]
+    const linkMatch = part.match(/^\[\[(.+?)\|(.+?)\]\]$/)
+    if (linkMatch) {
+      const [, name, id] = linkMatch
+      return (
+        <button
+          key={i}
+          onClick={() => onProductClick?.(id)}
+          className="
+            inline-flex items-center gap-space-3xs
+            text-primary font-medium underline underline-offset-2
+            hover:text-primary-light transition-colors duration-150
+            cursor-pointer
+          "
+        >
+          {name}
+        </button>
+      )
+    }
+    // Bold: **text**
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={i} className="font-semibold text-neutral-900">{part.slice(2, -2)}</strong>
     }
@@ -82,7 +104,7 @@ const SUGGESTIONS = [
   'Is Dawn dish soap safe to use?',
 ]
 
-export default function ChatDrawer() {
+export default function ChatDrawer({ onProductClick }) {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
@@ -254,7 +276,7 @@ export default function ChatDrawer() {
                     }
                   `}>
                     {msg.role === 'assistant'
-                      ? <ChatMessage content={msg.content} />
+                      ? <ChatMessage content={msg.content} onProductClick={onProductClick} />
                       : msg.content}
                   </div>
                 </div>
