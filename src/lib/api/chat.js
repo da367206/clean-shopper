@@ -6,7 +6,7 @@ const ANTHROPIC_API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY
 async function getProductCatalog() {
   const { data } = await supabase
     .from('products')
-    .select('name, brand, category, safety_score, score, description')
+    .select('id, name, brand, category, safety_score, score, description')
     .order('score', { ascending: false })
   return data ?? []
 }
