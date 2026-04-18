@@ -1,47 +1,51 @@
 const tokens = {
   colors: {
     primary: {
-      DEFAULT: '#3DB87A',
-      light:   '#72D4A8',
-      dark:    '#1F8A57',
+      DEFAULT: '#BC5724',
+      light:   '#D4713A',
+      dark:    '#9A4519',
     },
     secondary: {
-      DEFAULT: '#F7EDD8',
-      dark:    '#EBD9B8',
+      DEFAULT: '#FFE7DC',
+      dark:    '#FFC0A1',
     },
     accent: {
-      DEFAULT: '#2196C4',
-      light:   '#70C8E8',
+      DEFAULT: '#D7E0BF',
+      light:   '#E8EDD6',
+      cool:    '#CDDCE0',
     },
-    success: '#16A34A',
-    warning: '#D97706',
-    error:   '#DC2626',
+    success: '#16803a',
+    warning: '#d97706',
+    error:   '#eb5757',
     neutral: {
-      50:  '#FDFAF4',
-      100: '#F5EDD8',
-      200: '#E8D9BC',
-      400: '#8B949E',
-      600: '#6B5E4A',
-      900: '#1E1A12',
+      50:  '#FFF5EF',
+      100: '#FFE7DC',
+      200: '#FFC0A1',
+      400: '#B89080',
+      600: '#8B5A4A',
+      900: '#212121',
     },
   },
 
   fontFamily: {
-    sans: ['Poppins', 'system-ui', 'sans-serif'],
+    serif: ['Playfair Display', 'Georgia', 'serif'],
+    sans:  ['Jost', 'system-ui', 'sans-serif'],
   },
 
   fontSize: {
     micro:   ['12px', { lineHeight: '1.4', fontWeight: '400' }],
     small:   ['14px', { lineHeight: '1.5', fontWeight: '400' }],
     body:    ['16px', { lineHeight: '1.6', fontWeight: '400' }],
-    h4:      ['18px', { lineHeight: '1.4', fontWeight: '500' }],
-    h3:      ['22px', { lineHeight: '1.35', fontWeight: '600' }],
-    h2:      ['28px', { lineHeight: '1.3', fontWeight: '600' }],
-    h1:      ['36px', { lineHeight: '1.25', fontWeight: '600' }],
-    display: ['48px', { lineHeight: '1.2', fontWeight: '700' }],
+    h4:      ['20px', { lineHeight: '1.4', fontWeight: '400' }],
+    h3:      ['24px', { lineHeight: '1.2', fontWeight: '700' }],
+    h2:      ['32px', { lineHeight: '1.2', fontWeight: '700' }],
+    h1:      ['40px', { lineHeight: '1.15', fontWeight: '700' }],
+    display: ['48px', { lineHeight: '1.1', fontWeight: '700' }],
   },
 
   spacing: {
+    'space-3xs': '2px',
+    'space-2xs': '6px',
     'space-xs':  '4px',
     'space-sm':  '8px',
     'space-md':  '16px',
@@ -53,16 +57,16 @@ const tokens = {
   },
 
   borderRadius: {
-    'radius-sm':   '4px',
+    'radius-sm':   '3px',
     'radius-md':   '8px',
-    'radius-lg':   '16px',
+    'radius-lg':   '12px',
     'radius-full': '9999px',
   },
 
   boxShadow: {
-    'shadow-sm': '0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
-    'shadow-md': '0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04)',
-    'shadow-lg': '0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.05)',
+    'shadow-sm': '3px 3px 0px rgba(188,87,36,0.12)',
+    'shadow-md': '6px 6px 9px rgba(0,0,0,0.12)',
+    'shadow-lg': '12px 12px 50px rgba(0,0,0,0.20)',
   },
 }
 
