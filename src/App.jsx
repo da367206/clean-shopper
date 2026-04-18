@@ -20,6 +20,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('home')
   const [session, setSession] = useState(undefined) // undefined = loading, null = signed out
   const [authView, setAuthView] = useState('sign-in') // 'sign-in' | 'sign-up'
+  const [heroQuery, setHeroQuery] = useState('')
 
   async function handleSignOut() {
     await signOut()
@@ -100,7 +101,10 @@ export default function App() {
       {/* Main content */}
       <main className="md:pl-56">
         <div className="max-w-5xl mx-auto p-space-xl md:p-space-3xl pb-space-4xl md:pb-space-3xl">
-          {activeTab === 'search' ? <SearchPage /> : <BrowsePage />}
+          {activeTab === 'search'
+            ? <SearchPage initialQuery={heroQuery} onQueryConsumed={() => setHeroQuery('')} />
+            : <BrowsePage onSearchNavigate={(q) => { setHeroQuery(q); setActiveTab('search') }} />
+          }
         </div>
         <footer className="max-w-5xl mx-auto px-space-xl md:px-space-3xl pb-space-4xl md:pb-space-xl text-center">
           <p className="text-small text-neutral-400">Built with Claude Code</p>

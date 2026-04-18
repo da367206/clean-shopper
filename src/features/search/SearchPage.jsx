@@ -13,8 +13,8 @@ const SearchIcon = () => (
   </svg>
 )
 
-export default function SearchPage() {
-  const [query, setQuery] = useState('')
+export default function SearchPage({ initialQuery = '', onQueryConsumed }) {
+  const [query, setQuery] = useState(initialQuery)
   const [results, setResults] = useState([])
   const [savedIds, setSavedIds] = useState([])
   const [loading, setLoading] = useState(false)
@@ -33,6 +33,15 @@ export default function SearchPage() {
     setDeepDiveProduct(null)
     requestAnimationFrame(() => window.scrollTo(0, savedScrollYRef.current))
   }
+
+  // Auto-run search when arriving from the hero with a pre-filled query.
+  useEffect(() => {
+    if (initialQuery.trim()) {
+      handleSearch()
+      onQueryConsumed?.()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Load saved product IDs once on mount
   useEffect(() => {

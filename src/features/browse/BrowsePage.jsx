@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryTag from '../../components/CategoryTag'
 import IngredientDeepDivePage from '../../components/IngredientDeepDivePage'
@@ -7,14 +7,27 @@ import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/
 
 const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
 
-export default function BrowsePage() {
+const SearchIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="8" />
+    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+  </svg>
+)
+
+export default function BrowsePage({ onSearchNavigate }) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [savedIds, setSavedIds] = useState([])
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [deepDiveProduct, setDeepDiveProduct] = useState(null)
+  const [heroQuery, setHeroQuery] = useState('')
   const savedScrollYRef = useRef(0)
+
+  const handleHeroSearch = useCallback(() => {
+    const trimmed = heroQuery.trim()
+    if (trimmed) onSearchNavigate?.(trimmed)
+  }, [heroQuery, onSearchNavigate])
 
   function openDeepDive(product) {
     savedScrollYRef.current = window.scrollY
@@ -95,13 +108,55 @@ export default function BrowsePage() {
   return (
     <div className="flex flex-col gap-space-xl">
 
-      {/* Header */}
-      <div className="flex flex-col gap-space-xs">
-        <h1 className="text-h1 text-neutral-900">Browse</h1>
-        <p className="text-body text-neutral-600">
-          Explore products rated for ingredient safety.
+      {/* Hero */}
+      <section className="
+        -mx-space-xl -mt-space-xl md:-mx-space-3xl md:-mt-space-3xl
+        px-space-xl md:px-space-3xl
+        pt-space-4xl pb-space-3xl
+        bg-primary
+        text-center
+      ">
+        <h1 className="text-display text-white leading-tight">
+          Know what's in<br className="hidden sm:block" /> every product.
+        </h1>
+        <p className="mt-space-md text-h4 text-white/70 font-normal max-w-lg mx-auto">
+          Search hundreds of rated products and see every ingredient scored for safety.
         </p>
-      </div>
+
+        {/* Search input */}
+        <div className="mt-space-xl max-w-xl mx-auto flex gap-space-sm">
+          <input
+            type="text"
+            value={heroQuery}
+            onChange={(e) => setHeroQuery(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleHeroSearch()}
+            placeholder='Try "shampoo", "dish soap", or "Dove"…'
+            className="
+              flex-1 min-w-0
+              bg-white rounded-radius-md
+              px-space-md h-touch
+              text-body text-neutral-900 placeholder:text-neutral-400
+              focus:outline-none focus:ring-2 focus:ring-white
+              border-none
+            "
+          />
+          <button
+            type="button"
+            onClick={handleHeroSearch}
+            className="
+              flex items-center gap-space-xs
+              h-touch px-space-lg flex-shrink-0
+              bg-white text-primary font-medium text-body
+              rounded-radius-md
+              hover:bg-secondary transition-colors duration-150
+              focus:outline-none focus:ring-2 focus:ring-white
+            "
+          >
+            <SearchIcon />
+            Search
+          </button>
+        </div>
+      </section>
 
       {/* Category filters */}
       <div className="flex flex-wrap gap-space-sm">
