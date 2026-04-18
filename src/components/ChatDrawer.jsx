@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { sendChatMessage } from '../lib/api/chat'
-import { fetchProductById } from '../lib/api/products'
+import { fetchProductById, searchProducts } from '../lib/api/products'
 
 const ChatIcon = ({ size = 22 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -70,8 +70,18 @@ function ProductLinkCard({ id, name, onProductClick }) {
   const [product, setProduct] = useState(null)
 
   useEffect(() => {
-    fetchProductById(id).then(setProduct).catch(() => null)
-  }, [id])
+    async function load() {
+      try {
+        // Try exact ID match first
+        const byId = await fetchProductById(id).catch(() => null)
+        if (byId) { setProduct(byId); return }
+        // Fallback: search by the display name Claude gave us
+        const results = await searchProducts(name).catch(() => [])
+        if (results.length > 0) setProduct(results[0])
+      } catch { /* silent */ }
+    }
+    load()
+  }, [id, name])
 
   const SCORE_COLOR = {
     clean:   'text-success bg-success/10',
@@ -96,6 +106,7 @@ function ProductLinkCard({ id, name, onProductClick }) {
             src={product.image_url}
             alt={product.name}
             className="w-full h-full object-cover"
+            onError={e => { e.currentTarget.style.display = 'none' }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-neutral-300">
