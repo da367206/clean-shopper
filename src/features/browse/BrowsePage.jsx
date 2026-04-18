@@ -113,7 +113,7 @@ export default function BrowsePage({ onSearchNavigate }) {
 
         {/* Clean rustic farmhouse background */}
         <img
-          src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1920&q=80"
+          src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=1920&q=80"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
