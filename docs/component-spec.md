@@ -575,9 +575,13 @@ li.flex.flex-col
   div.flex.flex-col.gap-space-sm.px-space-md.pb-space-md
     p.text-body.text-neutral-900                       // purpose
     p.text-small.text-neutral-600                      // concerns
+    a.text-small.text-primary + InfoIcon               // "More info on this ingredient" → EWG Skin Deep
     p.text-micro.text-neutral-400                      // source
     Button(variant="secondary", size="sm")             // Ask about this ingredient
 ```
+
+### External reference link
+Every expanded row includes an external link to the EWG Skin Deep search results for the ingredient (`https://www.ewg.org/skindeep/search/?search=<name>`). Rendered as a blue inline link with an info-circle icon, styled after Yuka's "More info on the additives" pattern. Opens in a new tab with `rel="noopener noreferrer"`. URL is computed client-side from `name` — no new prop, no data-layer change.
 
 ### States
 - **Collapsed (default):** chevron pointing down.

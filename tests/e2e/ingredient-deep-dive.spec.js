@@ -91,6 +91,14 @@ test.describe('Ingredient Deep-Dive', () => {
     await expect(panel).toContainText(/AI-generated \(Claude\)/i) // source line
     await expect(panel.getByRole('button', { name: 'Ask about this ingredient' })).toBeVisible()
 
+    // External reference link: should open EWG Skin Deep in a new tab with
+    // the ingredient name URL-encoded into the search query.
+    const infoLink = panel.getByRole('link', { name: /More info on this ingredient/i })
+    await expect(infoLink).toBeVisible()
+    await expect(infoLink).toHaveAttribute('href', /ewg\.org\/skindeep\/search\/\?search=Glycerin/)
+    await expect(infoLink).toHaveAttribute('target', '_blank')
+    await expect(infoLink).toHaveAttribute('rel', /noopener/)
+
     // Multi-expansion: open a second row without closing the first.
     const fragranceRow = page.getByRole('button').filter({ hasText: 'Fragrance (Parfum)' })
     await fragranceRow.click()
