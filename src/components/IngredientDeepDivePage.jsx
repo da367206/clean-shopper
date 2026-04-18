@@ -92,9 +92,11 @@ export default function IngredientDeepDivePage({
         </Button>
       </div>
 
-      {/* Header: image + meta */}
-      <header className="flex flex-col gap-space-md">
-        <div className="relative w-full h-img-card rounded-radius-lg overflow-hidden bg-neutral-100 flex items-center justify-center shadow-shadow-sm">
+      {/* Header: image left, meta right */}
+      <header className="flex flex-col sm:flex-row gap-space-lg sm:gap-space-xl items-start">
+
+        {/* Image */}
+        <div className="relative w-full sm:w-48 sm:flex-shrink-0 h-img-card sm:h-48 rounded-radius-lg overflow-hidden bg-neutral-100 flex items-center justify-center shadow-shadow-sm">
           {product.image_url ? (
             <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
           ) : (
@@ -108,7 +110,8 @@ export default function IngredientDeepDivePage({
           )}
         </div>
 
-        <div className="flex flex-col gap-space-sm">
+        {/* Meta */}
+        <div className="flex flex-col gap-space-sm flex-1 min-w-0">
           <div>
             <CategoryTag label={product.category} />
           </div>
@@ -131,16 +134,16 @@ export default function IngredientDeepDivePage({
               {product.description}
             </p>
           )}
+          {onSaveToggle && (
+            <div className="mt-space-xs">
+              <Button variant="secondary" size="sm" onClick={onSaveToggle}>
+                <BookmarkIcon />
+                {isSaved ? 'Saved' : 'Save to list'}
+              </Button>
+            </div>
+          )}
         </div>
 
-        {onSaveToggle && (
-          <div>
-            <Button variant="secondary" size="sm" onClick={onSaveToggle}>
-              <BookmarkIcon />
-              {isSaved ? 'Saved' : 'Save to list'}
-            </Button>
-          </div>
-        )}
       </header>
 
       {/* Body: loading | error | empty | list */}
