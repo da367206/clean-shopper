@@ -36,3 +36,4 @@ Email/password authentication via Supabase Auth. Local state plus Supabase for d
 - Design system: See /docs/design-system.md — follow these visual specifications for all UI work. Do not hardcode colors, font sizes, spacing, or shadows.
 - Prompt optimization: Use /prompt-optimizer to evaluate and refine instructions before sending them
 - Tailwind config: See tailwind.config.js for design tokens as Tailwind theme extensions. Always use theme classes, never hardcode values.
+- Figma design system: Connected via Figma MCP. The canonical design token values live in the Figma file. When checking or updating design tokens, read the current values from Figma using get_variable_defs and compare against the token files in the codebase.
