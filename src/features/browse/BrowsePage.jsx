@@ -109,7 +109,21 @@ export default function BrowsePage({ onSearchNavigate }) {
     <div className="flex flex-col">
 
       {/* Hero — full-bleed, no container constraint */}
-      <section className="bg-primary px-space-xl md:px-space-3xl pt-space-4xl pb-space-3xl text-center">
+      <section className="relative px-space-xl md:px-space-3xl pt-space-4xl pb-space-3xl text-center overflow-hidden">
+
+        {/* Background image */}
+        <img
+          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1920&q=80"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+
+        {/* Warm overlay — keeps brand color + readability */}
+        <div className="absolute inset-0 bg-primary/80" />
+
+        {/* Content */}
+        <div className="relative z-10">
         <h1 className="text-display text-white leading-tight">
           Know what's in<br className="hidden sm:block" /> every product.
         </h1>
@@ -150,6 +164,7 @@ export default function BrowsePage({ onSearchNavigate }) {
             Search
           </button>
         </div>
+        </div>{/* end content */}
       </section>
 
       {/* Constrained content below the hero */}
