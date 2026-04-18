@@ -8,10 +8,24 @@ const BookmarkIcon = () => (
   </svg>
 )
 
-export default function ProductCard({ name, safetyScore, score, category, description, imageUrl, onClick, onSave, isSaved }) {
+export default function ProductCard({ name, safetyScore, score, category, description, imageUrl, onClick, onSave, isSaved, onScoreClick }) {
+  // When onScoreClick is provided, the safety badge + numeric score overlay
+  // become a dedicated tap target for the Ingredient Deep-Dive. The rest of
+  // the card remains free for the existing onClick.
+  const triggerScore = (e) => {
+    e.stopPropagation()
+    onScoreClick?.()
+  }
+  const onScoreKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      triggerScore(e)
+    }
+  }
+
   return (
     <div
-      className="
+      className={`
         bg-white
         border border-neutral-200
         rounded-radius-lg
@@ -20,9 +34,18 @@ export default function ProductCard({ name, safetyScore, score, category, descri
         transition-shadow duration-200
         overflow-hidden
         flex flex-col
-      "
+        ${onClick ? 'cursor-pointer' : ''}
+      `}
       onClick={onClick}
       role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-label={onClick ? `View ingredient breakdown for ${name}` : undefined}
+      onKeyDown={onClick ? (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick()
+        }
+      } : undefined}
     >
       {/* Product image */}
       <div className="relative w-full h-img-card bg-neutral-50 flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -36,13 +59,31 @@ export default function ProductCard({ name, safetyScore, score, category, descri
               <span className="text-micro font-medium tracking-wide uppercase">Clean Shopper</span>
             </div>
         }
-        {/* Safety badge — top left */}
-        <div className="absolute top-space-sm left-space-sm">
+        {/* Safety badge — top left (deep-dive trigger when onScoreClick is set) */}
+        <div
+          className={`absolute top-space-sm left-space-sm rounded-radius-sm ${onScoreClick ? 'cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary' : ''}`}
+          {...(onScoreClick && {
+            role: 'button',
+            tabIndex: 0,
+            'aria-label': 'View ingredient breakdown',
+            onClick: triggerScore,
+            onKeyDown: onScoreKeyDown,
+          })}
+        >
           <SafetyBadge score={safetyScore} size="sm" variant="solid" />
         </div>
-        {/* Score badge — top right */}
+        {/* Score badge — top right (also a deep-dive trigger when onScoreClick is set) */}
         {score !== undefined && (
-          <div className="absolute top-space-sm right-space-sm">
+          <div
+            className={`absolute top-space-sm right-space-sm rounded-radius-md ${onScoreClick ? 'cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary' : ''}`}
+            {...(onScoreClick && {
+              role: 'button',
+              tabIndex: 0,
+              'aria-label': 'View ingredient breakdown',
+              onClick: triggerScore,
+              onKeyDown: onScoreKeyDown,
+            })}
+          >
             <span className={`
               inline-flex flex-col items-center justify-center
               w-score-badge h-score-badge

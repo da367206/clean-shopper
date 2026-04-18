@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryTag from '../../components/CategoryTag'
+import IngredientDeepDivePage from '../../components/IngredientDeepDivePage'
 import { fetchProductsByCategory } from '../../lib/api/products'
 import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
@@ -12,6 +13,20 @@ export default function BrowsePage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [deepDiveProduct, setDeepDiveProduct] = useState(null)
+  const savedScrollYRef = useRef(0)
+
+  function openDeepDive(product) {
+    savedScrollYRef.current = window.scrollY
+    setDeepDiveProduct(product)
+    window.scrollTo(0, 0)
+  }
+
+  function closeDeepDive() {
+    setDeepDiveProduct(null)
+    // Restore after React commits the list view.
+    requestAnimationFrame(() => window.scrollTo(0, savedScrollYRef.current))
+  }
 
   // Load products when category changes
   useEffect(() => {
@@ -64,6 +79,17 @@ export default function BrowsePage() {
       )
       console.error('Failed to toggle save:', err)
     }
+  }
+
+  if (deepDiveProduct) {
+    return (
+      <IngredientDeepDivePage
+        product={deepDiveProduct}
+        onClose={closeDeepDive}
+        onSaveToggle={() => toggleSave(deepDiveProduct.id)}
+        isSaved={savedIds.includes(deepDiveProduct.id)}
+      />
+    )
   }
 
   return (
@@ -121,6 +147,7 @@ export default function BrowsePage() {
               imageUrl={product.image_url}
               onSave={() => toggleSave(product.id)}
               isSaved={savedIds.includes(product.id)}
+              onClick={() => openDeepDive(product)}
             />
           ))}
         </div>

@@ -24,6 +24,7 @@ This is the canonical component inventory for V1. Before creating a new componen
 | `onClick` | function | No | Handler for card tap/click |
 | `onSave` | function | No | When provided, renders a Save to list button |
 | `isSaved` | boolean | No | Changes save button label to "Saved" when true |
+| `onScoreClick` | function | No | When provided, the `SafetyBadge` overlay and (if shown) the numeric score badge become a dedicated button that opens the Ingredient Deep-Dive. Additive only — the rest of the card still fires `onClick`. |
 
 ### Visual Structure
 ```
@@ -476,3 +477,113 @@ div.fixed.z-50
 - Suggestion buttons send their text as the first user message directly (no intermediate state)
 - Messages sent with Enter key (without Shift) or the send button
 - Panel auto-scrolls to the latest message on each new turn
+
+---
+
+## IngredientDeepDivePage
+
+**Purpose:** Top-level view that opens when a user taps a product's safety score. Fetches a per-ingredient safety breakdown and orchestrates header, list, empty, loading, and error states. See `/docs/feature-spec-ingredient-deep-dive.md`.
+
+### Props
+| Prop | Type | Required | Description |
+|---|---|---|---|
+| `product` | object | Yes | Product record — `{ id, name, category, description, image_url, safety_score, score }`. |
+| `onClose` | function | Yes | Handler invoked when the user taps Back/close. |
+| `onSaveToggle` | function | No | Handler for the Save/Saved button. When omitted, the button is hidden (read-only contexts). |
+| `isSaved` | boolean | No | Controls Save button label state. |
+| `onAskAI` | function | No | Optional handler forwarded to each ingredient row for the "Ask about this ingredient" action. Receives a prefilled seed string. |
+
+### Visual Structure
+```
+section.flex.flex-col.gap-space-xl.pb-space-4xl.max-w-3xl.mx-auto
+  Button(variant="ghost", size="sm")                 // Back
+  header.flex.flex-col.gap-space-md
+    div.relative.w-full.h-img-card.rounded-radius-lg.overflow-hidden.bg-neutral-100.shadow-shadow-sm
+      img | placeholder
+    div.flex.flex-col.gap-space-sm
+      CategoryTag
+      h1.text-h1.text-neutral-900
+      div.flex.items-center.gap-space-md
+        SafetyBadge(size="md", variant="light")
+        span.text-body.text-neutral-600                // "Overall score: 87"
+    Button(variant="primary", size="md")               // Save / Saved
+  body: IngredientList | skeleton | error | EmptyState
+```
+
+### States
+- **Loading:** Five skeleton rows using `bg-neutral-100 animate-pulse`.
+- **Error:** Inline `text-small text-error` with a ghost `Try again` button that re-invokes the fetch.
+- **Empty:** `EmptyState` with title "No ingredient data yet" and an action that opens `ChatDrawer`.
+- **Loaded:** `IngredientList`.
+
+### Usage Rules
+- Fetches via `lib/api/ingredients.js` → `fetchIngredientAnalysis(product)`; no other data source.
+- Uses the shared Claude model `claude-sonnet-4-20250514`. Do not introduce a different model.
+- Does not cache ingredient data in V1 — re-fetches on every open.
+
+---
+
+## IngredientList
+
+**Purpose:** Wraps the list of `IngredientRow`s inside a bordered card.
+
+### Props
+| Prop | Type | Required | Description |
+|---|---|---|---|
+| `ingredients` | `Ingredient[]` | Yes | Array of `{ name, safetyScore, purpose, concerns, source }`. |
+| `onAskAI` | `(ingredient) => void` | Yes | Forwarded to each row for the "Ask about this ingredient" action. |
+
+### Visual Structure
+```
+div.flex.flex-col.gap-space-sm
+  h2.text-h3.text-neutral-900                          // "Ingredients"
+  ul.flex.flex-col.rounded-radius-lg.border.border-neutral-200.bg-white.divide-y.divide-neutral-200
+    IngredientRow × n
+```
+
+### Usage Rules
+- Do not render without the wrapping heading.
+- Multiple rows may be expanded simultaneously — no accordion coupling.
+
+---
+
+## IngredientRow
+
+**Purpose:** Collapsible list item for a single ingredient. Collapsed shows safety badge + name + chevron. Expanded reveals purpose, concerns, source attribution, and an Ask-AI action.
+
+### Props
+| Prop | Type | Required | Description |
+|---|---|---|---|
+| `name` | string | Yes | Ingredient name. |
+| `safetyScore` | `'clean' \| 'caution' \| 'avoid'` | Yes | Per-ingredient rating. |
+| `purpose` | string | No | One-sentence description of what the ingredient does. |
+| `concerns` | string | No | 1–3 sentences explaining the rating. |
+| `source` | string | No | Source attribution label. Defaults to `"AI-generated (Claude) · grounded in EWG Skin Deep"`. |
+| `onAskAI` | function | Yes | Handler called with `{ name, safetyScore }` when the user taps "Ask about this ingredient". |
+
+### Visual Structure
+```
+li.flex.flex-col
+  button.flex.items-center.justify-between.gap-space-md.p-space-md.w-full.text-left.min-h-touch
+         .hover:bg-neutral-50.transition-colors.duration-150
+    div.flex.items-center.gap-space-sm
+      SafetyBadge(size="sm", variant="light")
+      span.text-body.font-medium.text-neutral-900
+    ChevronIcon (rotates 180° when expanded)
+
+  // Expanded panel
+  div.flex.flex-col.gap-space-sm.px-space-md.pb-space-md
+    p.text-body.text-neutral-900                       // purpose
+    p.text-small.text-neutral-600                      // concerns
+    p.text-micro.text-neutral-400                      // source
+    Button(variant="secondary", size="sm")             // Ask about this ingredient
+```
+
+### States
+- **Collapsed (default):** chevron pointing down.
+- **Expanded:** chevron rotated 180°; panel visible; associated via `aria-expanded` and `aria-controls`.
+- **Keyboard focus:** browser-default focus ring preserved — no custom outline suppression.
+
+### Usage Rules
+- The row trigger must be a real `<button>`; do not substitute a `div` with `onClick`.
+- Do not use this outside `IngredientList`.

@@ -49,6 +49,20 @@ export default function ChatDrawer() {
     }
   }, [isOpen])
 
+  // Open + seed via a global event. Callers dispatch:
+  //   window.dispatchEvent(new CustomEvent('clean-shopper:ask', { detail: { prompt } }))
+  // No new props are added to ChatDrawer; its public API is unchanged.
+  useEffect(() => {
+    function handleAsk(e) {
+      const prompt = e?.detail?.prompt
+      if (typeof prompt !== 'string' || !prompt.trim()) return
+      setIsOpen(true)
+      setInput(prompt)
+    }
+    window.addEventListener('clean-shopper:ask', handleAsk)
+    return () => window.removeEventListener('clean-shopper:ask', handleAsk)
+  }, [])
+
   async function sendMessage(text) {
     const trimmed = text.trim()
     if (!trimmed || isLoading) return

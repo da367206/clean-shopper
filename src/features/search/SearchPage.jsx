@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import SearchBar from '../../components/SearchBar'
 import ProductCard from '../../components/ProductCard'
 import EmptyState from '../../components/EmptyState'
+import IngredientDeepDivePage from '../../components/IngredientDeepDivePage'
 import { searchProducts } from '../../lib/api/products'
 import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
@@ -19,6 +20,19 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false)
   const [searched, setSearched] = useState(false)
   const [error, setError] = useState(null)
+  const [deepDiveProduct, setDeepDiveProduct] = useState(null)
+  const savedScrollYRef = useRef(0)
+
+  function openDeepDive(product) {
+    savedScrollYRef.current = window.scrollY
+    setDeepDiveProduct(product)
+    window.scrollTo(0, 0)
+  }
+
+  function closeDeepDive() {
+    setDeepDiveProduct(null)
+    requestAnimationFrame(() => window.scrollTo(0, savedScrollYRef.current))
+  }
 
   // Load saved product IDs once on mount
   useEffect(() => {
@@ -72,6 +86,17 @@ export default function SearchPage() {
       )
       console.error('Failed to toggle save:', err)
     }
+  }
+
+  if (deepDiveProduct) {
+    return (
+      <IngredientDeepDivePage
+        product={deepDiveProduct}
+        onClose={closeDeepDive}
+        onSaveToggle={() => toggleSave(deepDiveProduct.id)}
+        isSaved={savedIds.includes(deepDiveProduct.id)}
+      />
+    )
   }
 
   return (
@@ -147,6 +172,7 @@ export default function SearchPage() {
                 imageUrl={product.image_url}
                 onSave={() => toggleSave(product.id)}
                 isSaved={savedIds.includes(product.id)}
+                onClick={() => openDeepDive(product)}
               />
             ))}
           </div>
