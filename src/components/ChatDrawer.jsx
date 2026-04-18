@@ -21,6 +21,60 @@ const SendIcon = () => (
   </svg>
 )
 
+/**
+ * Renders assistant message text with light formatting:
+ *   **bold** → <strong>, lines starting with "- " → bullet items,
+ *   blank lines → paragraph breaks.
+ */
+function ChatMessage({ content }) {
+  // Split into paragraphs on blank lines
+  const paragraphs = content.split(/\n{2,}/)
+
+  return (
+    <div className="flex flex-col gap-space-sm">
+      {paragraphs.map((para, pi) => {
+        const lines = para.split('\n')
+        const isList = lines.every(l => l.trimStart().startsWith('- '))
+
+        if (isList) {
+          return (
+            <ul key={pi} className="flex flex-col gap-space-xs pl-space-xs">
+              {lines.map((line, li) => (
+                <li key={li} className="flex gap-space-xs">
+                  <span className="text-primary mt-[3px] flex-shrink-0">•</span>
+                  <span>{renderInline(line.replace(/^-\s*/, ''))}</span>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        return (
+          <p key={pi}>
+            {lines.map((line, li) => (
+              <span key={li}>
+                {li > 0 && <br />}
+                {renderInline(line)}
+              </span>
+            ))}
+          </p>
+        )
+      })}
+    </div>
+  )
+}
+
+/** Render inline **bold** spans */
+function renderInline(text) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/)
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i} className="font-semibold text-neutral-900">{part.slice(2, -2)}</strong>
+    }
+    return part
+  })
+}
+
 const SUGGESTIONS = [
   'Recommend a clean baby shampoo',
   'Which deodorants are aluminum-free?',
@@ -199,7 +253,9 @@ export default function ChatDrawer() {
                       : 'bg-neutral-100 text-neutral-900 rounded-radius-md rounded-bl-none'
                     }
                   `}>
-                    {msg.content}
+                    {msg.role === 'assistant'
+                      ? <ChatMessage content={msg.content} />
+                      : msg.content}
                   </div>
                 </div>
               ))}

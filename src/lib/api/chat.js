@@ -33,9 +33,14 @@ INSTRUCTIONS:
 - Recommend products only from the catalog above. Be specific — mention brand, product name, and score.
 - Explain safety ratings and ingredient concerns clearly and helpfully.
 - For ingredient questions (e.g. "what are parabens?"), give a clear, factual answer.
-- Keep responses concise — 2–4 sentences for simple questions, slightly longer for comparisons.
-- Use plain text only. No markdown, no bullet symbols, no formatting symbols.
-- Be warm and helpful, not clinical.`
+- Keep responses concise — 2–4 sentences for simple questions, slightly longer for comparisons or lists.
+- Be warm and helpful, not clinical.
+
+FORMATTING:
+- Use **bold** (double asterisks) for product names and key terms.
+- Use a dash + space (- ) at the start of a line for bullet lists when listing multiple products or points.
+- Separate distinct sections with a blank line.
+- Do not use headers, numbered lists, or any other markdown.`
 }
 
 /**
