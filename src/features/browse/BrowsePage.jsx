@@ -1,11 +1,60 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import ProductCard from '../../components/ProductCard'
-import CategoryTag from '../../components/CategoryTag'
 import IngredientDeepDivePage from '../../components/IngredientDeepDivePage'
 import { fetchProductsByCategory, fetchFeaturedProducts } from '../../lib/api/products'
 import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
-const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
+const CATEGORIES = [
+  {
+    key: 'All',
+    label: 'All',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'Personal Care',
+    label: 'Personal Care',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 2a5 5 0 0 1 5 5c0 3-2 5.5-5 7-3-1.5-5-4-5-7a5 5 0 0 1 5-5z"/>
+        <path d="M5 20c0-3 3-5 7-5s7 2 7 5"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'Home Cleaning',
+    label: 'Home Cleaning',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'Baby Care',
+    label: 'Baby Care',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    ),
+  },
+  {
+    key: 'Kitchen',
+    label: 'Kitchen',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><line x1="7" y1="2" x2="7" y2="11"/>
+        <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+      </svg>
+    ),
+  },
+]
 
 const SearchIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -234,15 +283,28 @@ export default function BrowsePage({ onSearchNavigate, onScanOpen }) {
       )}
 
       {/* Category filters */}
-      <div className="flex flex-wrap gap-space-sm">
-        {CATEGORIES.map((cat) => (
-          <CategoryTag
-            key={cat}
-            label={cat}
-            isActive={activeCategory === cat}
-            onClick={() => setActiveCategory(cat)}
-          />
-        ))}
+      <div className="grid grid-cols-5 gap-space-sm">
+        {CATEGORIES.map(({ key, label, icon }) => {
+          const isActive = activeCategory === key
+          return (
+            <button
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              className={`
+                flex flex-col items-center justify-center gap-space-xs
+                py-space-md px-space-xs
+                rounded-radius-md border
+                text-center transition-colors duration-150
+                ${isActive
+                  ? 'bg-primary text-white border-primary shadow-shadow-sm'
+                  : 'bg-white text-neutral-600 border-neutral-200 hover:border-primary hover:text-primary'}
+              `}
+            >
+              {icon}
+              <span className="text-micro font-medium leading-tight">{label}</span>
+            </button>
+          )
+        })}
       </div>
 
       {/* Error state */}
