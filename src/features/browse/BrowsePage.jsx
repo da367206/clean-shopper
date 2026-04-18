@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import ProductCard from '../../components/ProductCard'
 import CategoryTag from '../../components/CategoryTag'
 import IngredientDeepDivePage from '../../components/IngredientDeepDivePage'
-import { fetchProductsByCategory } from '../../lib/api/products'
+import { fetchProductsByCategory, fetchFeaturedProducts } from '../../lib/api/products'
 import { fetchSavedProductIds, saveProduct, unsaveProduct } from '../../lib/api/savedProducts'
 
 const CATEGORIES = ['All', 'Personal Care', 'Home Cleaning', 'Baby Care', 'Kitchen']
@@ -22,6 +22,7 @@ export default function BrowsePage({ onSearchNavigate }) {
   const [error, setError] = useState(null)
   const [deepDiveProduct, setDeepDiveProduct] = useState(null)
   const [heroQuery, setHeroQuery] = useState('')
+  const [featured, setFeatured] = useState([])
   const savedScrollYRef = useRef(0)
 
   const handleHeroSearch = useCallback(() => {
@@ -71,6 +72,11 @@ export default function BrowsePage({ onSearchNavigate }) {
       }
     }
     loadSaved()
+  }, [])
+
+  // Load featured (top clean) products once on mount
+  useEffect(() => {
+    fetchFeaturedProducts(3).then(setFeatured).catch(() => {})
   }, [])
 
   async function toggleSave(productId) {
@@ -166,6 +172,42 @@ export default function BrowsePage({ onSearchNavigate }) {
 
       {/* Constrained content below the hero */}
       <div className="max-w-5xl mx-auto w-full px-space-xl md:px-space-3xl pt-space-xl pb-space-4xl flex flex-col gap-space-xl">
+
+      {/* Featured products */}
+      {featured.length > 0 && (
+        <div className="flex flex-col gap-space-md">
+          <div className="flex items-center justify-between">
+            <h2 className="text-h3 text-neutral-900">Top Picks</h2>
+            <button
+              onClick={() => setActiveCategory('All')}
+              className="text-small text-primary font-medium hover:underline"
+            >
+              Browse all →
+            </button>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-lg">
+            {featured.map((product) => (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                safetyScore={product.safety_score}
+                score={product.score}
+                category={product.category}
+                description={product.description}
+                imageUrl={product.image_url}
+                onSave={() => toggleSave(product.id)}
+                isSaved={savedIds.includes(product.id)}
+                onClick={() => openDeepDive(product)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Divider */}
+      {featured.length > 0 && (
+        <hr className="border-neutral-200" />
+      )}
 
       {/* Category filters */}
       <div className="flex flex-wrap gap-space-sm">

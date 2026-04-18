@@ -1,5 +1,16 @@
 import { supabase } from '../supabase'
 
+export async function fetchFeaturedProducts(limit = 3) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('safety_score', 'clean')
+    .order('score', { ascending: false })
+    .limit(limit)
+  if (error) throw error
+  return data ?? []
+}
+
 export async function fetchProductsByCategory(category) {
   let query = supabase.from('products').select('*').order('score', { ascending: false })
   if (category !== 'All') query = query.eq('category', category)
