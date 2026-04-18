@@ -59,7 +59,7 @@ test.describe('Ingredient Deep-Dive', () => {
     // which is acceptable. The test primarily asserts the list eventually
     // replaces whatever loading placeholder was shown.)
 
-    // AC #3: one row per ingredient, each with a SafetyBadge.
+    // AC #3: one row per ingredient, each with a safety label (Clean/Caution/Avoid).
     // Personal Care fixture has 7 ingredients.
     const rows = page.getByRole('button', { expanded: false }).filter({
       has: page.locator('span', { hasText: /^(Clean|Caution|Avoid)$/ }),
@@ -84,10 +84,11 @@ test.describe('Ingredient Deep-Dive', () => {
     await glycerinRow.click()
     await expect(glycerinRow).toHaveAttribute('aria-expanded', 'true')
 
-    // AC #4: expanded panel contains purpose + concerns + source attribution.
+    // AC #4: purpose subtitle is always visible in the row header; expanded
+    // panel contains concerns + source attribution.
+    await expect(glycerinRow).toContainText(/humectant/i) // always-visible purpose subtitle
     const panel = page.locator(`#${controlsId}`)
     await expect(panel).toBeVisible()
-    await expect(panel).toContainText(/humectant/i) // purpose copy
     await expect(panel).toContainText(/AI-generated \(Claude\)/i) // source line
     await expect(panel.getByRole('button', { name: 'Ask about this ingredient' })).toBeVisible()
 

@@ -549,15 +549,15 @@ div.flex.flex-col.gap-space-sm
 
 ## IngredientRow
 
-**Purpose:** Collapsible list item for a single ingredient. Collapsed shows safety badge + name + chevron. Expanded reveals purpose, concerns, source attribution, and an Ask-AI action.
+**Purpose:** Collapsible list item for a single ingredient. Two-line collapsed row (name + purpose subtitle always visible); safety indicated on the right as a text label + colored dot + chevron. Expanded panel reveals concerns, EWG reference link, source attribution, and Ask-AI action.
 
 ### Props
 | Prop | Type | Required | Description |
 |---|---|---|---|
 | `name` | string | Yes | Ingredient name. |
 | `safetyScore` | `'clean' \| 'caution' \| 'avoid'` | Yes | Per-ingredient rating. |
-| `purpose` | string | No | One-sentence description of what the ingredient does. |
-| `concerns` | string | No | 1–3 sentences explaining the rating. |
+| `purpose` | string | No | One-sentence description of what the ingredient does. Always visible as a subtitle in the row header. |
+| `concerns` | string | No | 1–3 sentences explaining the rating. Only shown in expanded panel. |
 | `source` | string | No | Source attribution label. Defaults to `"AI-generated (Claude) · grounded in EWG Skin Deep"`. |
 | `onAskAI` | function | Yes | Handler called with `{ name, safetyScore }` when the user taps "Ask about this ingredient". |
 
@@ -566,28 +566,35 @@ div.flex.flex-col.gap-space-sm
 li.flex.flex-col
   button.flex.items-center.justify-between.gap-space-md.p-space-md.w-full.text-left.min-h-touch
          .hover:bg-neutral-50.transition-colors.duration-150
-    div.flex.items-center.gap-space-sm
-      SafetyBadge(size="sm", variant="light")
-      span.text-body.font-medium.text-neutral-900
-    ChevronIcon (rotates 180° when expanded)
+
+    // Left — two-line text block
+    div.flex.flex-col.min-w-0.flex-1
+      span.text-body.font-medium.text-neutral-900          // ingredient name
+      span.text-small.text-neutral-400                     // purpose subtitle (always visible)
+
+    // Right — safety indicator + chevron
+    div.flex.items-center.gap-space-xs.flex-shrink-0
+      span.text-small.font-medium.(text-success|text-warning|text-error)   // "Clean" / "Caution" / "Avoid"
+      span.w-2.h-2.rounded-full.(bg-success|bg-warning|bg-error)           // colored dot
+      ChevronIcon (points → when collapsed, rotates 90° down when expanded)
 
   // Expanded panel
   div.flex.flex-col.gap-space-sm.px-space-md.pb-space-md
-    p.text-body.text-neutral-900                       // purpose
-    p.text-small.text-neutral-600                      // concerns
+    p.text-small.text-neutral-600                       // concerns
     a.text-small.text-primary + InfoIcon               // "More info on this ingredient" → EWG Skin Deep
     p.text-micro.text-neutral-400                      // source
     Button(variant="secondary", size="sm")             // Ask about this ingredient
 ```
 
 ### External reference link
-Every expanded row includes an external link to the EWG Skin Deep search results for the ingredient (`https://www.ewg.org/skindeep/search/?search=<name>`). Rendered as a blue inline link with an info-circle icon, styled after Yuka's "More info on the additives" pattern. Opens in a new tab with `rel="noopener noreferrer"`. URL is computed client-side from `name` — no new prop, no data-layer change.
+Every expanded row includes an external link to the EWG Skin Deep search results for the ingredient (`https://www.ewg.org/skindeep/search/?search=<name>`). Rendered as a blue inline link with an info-circle icon. Opens in a new tab with `rel="noopener noreferrer"`.
 
 ### States
-- **Collapsed (default):** chevron pointing down.
-- **Expanded:** chevron rotated 180°; panel visible; associated via `aria-expanded` and `aria-controls`.
+- **Collapsed (default):** chevron pointing right (→); purpose visible as subtitle.
+- **Expanded:** chevron rotated 90° (pointing down); concerns panel visible; associated via `aria-expanded` and `aria-controls`.
 - **Keyboard focus:** browser-default focus ring preserved — no custom outline suppression.
 
 ### Usage Rules
 - The row trigger must be a real `<button>`; do not substitute a `div` with `onClick`.
 - Do not use this outside `IngredientList`.
+- `SafetyBadge` is **not** used in this component — safety is shown as inline text label + dot.

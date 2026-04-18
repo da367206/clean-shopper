@@ -1,22 +1,22 @@
 import { useState, useId } from 'react'
-import SafetyBadge from './SafetyBadge'
 import Button from './Button'
 
+// Chevron points right (→) when collapsed, rotates 90° down when expanded.
 const ChevronIcon = ({ expanded }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
+    width="16"
+    height="16"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+    className={`transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`}
     aria-hidden="true"
   >
-    <polyline points="6 9 12 15 18 9" />
+    <polyline points="9 18 15 12 9 6" />
   </svg>
 )
 
@@ -46,6 +46,18 @@ function ewgSearchUrl(name) {
   return `https://www.ewg.org/skindeep/search/?search=${encodeURIComponent(name)}`
 }
 
+const SAFETY_DOT = {
+  clean:   'bg-success',
+  caution: 'bg-warning',
+  avoid:   'bg-error',
+}
+
+const SAFETY_LABEL = {
+  clean:   { text: 'Clean',   color: 'text-success' },
+  caution: { text: 'Caution', color: 'text-warning' },
+  avoid:   { text: 'Avoid',   color: 'text-error'   },
+}
+
 export default function IngredientRow({
   name,
   safetyScore,
@@ -56,6 +68,9 @@ export default function IngredientRow({
 }) {
   const [expanded, setExpanded] = useState(false)
   const panelId = useId()
+
+  const dotClass   = SAFETY_DOT[safetyScore]   ?? SAFETY_DOT.caution
+  const labelCfg   = SAFETY_LABEL[safetyScore] ?? SAFETY_LABEL.caution
 
   return (
     <li className="flex flex-col">
@@ -72,17 +87,31 @@ export default function IngredientRow({
           transition-colors duration-150
         "
       >
-        <div className="flex items-center gap-space-sm min-w-0 flex-1">
-          <div className="flex-shrink-0">
-            <SafetyBadge score={safetyScore} size="sm" variant="light" />
-          </div>
-          <span className="text-body font-medium text-neutral-900 break-words">
+        {/* Left — name + always-visible purpose subtitle */}
+        <div className="flex flex-col min-w-0 flex-1">
+          <span className="text-body font-medium text-neutral-900 break-words leading-snug">
             {name}
           </span>
+          {purpose && (
+            <span className="text-small text-neutral-400 break-words leading-snug mt-space-3xs">
+              {purpose}
+            </span>
+          )}
         </div>
-        <span className="text-neutral-400 flex-shrink-0">
-          <ChevronIcon expanded={expanded} />
-        </span>
+
+        {/* Right — safety label + dot + chevron */}
+        <div className="flex items-center gap-space-xs flex-shrink-0">
+          <span className={`text-small font-medium ${labelCfg.color}`}>
+            {labelCfg.text}
+          </span>
+          <span
+            className={`w-2 h-2 rounded-full flex-shrink-0 ${dotClass}`}
+            aria-hidden="true"
+          />
+          <span className="text-neutral-400">
+            <ChevronIcon expanded={expanded} />
+          </span>
+        </div>
       </button>
 
       {expanded && (
@@ -90,9 +119,6 @@ export default function IngredientRow({
           id={panelId}
           className="flex flex-col gap-space-sm px-space-md pb-space-md"
         >
-          {purpose && (
-            <p className="text-body text-neutral-900">{purpose}</p>
-          )}
           {concerns && (
             <p className="text-small text-neutral-600">{concerns}</p>
           )}
